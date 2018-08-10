@@ -1,5 +1,5 @@
 class Deal < ApplicationRecord
   has_many :investments
-
-  def current_month_deal_volume; end
+  has_one :loan
+  belongs_to :user, foreign_key: 'borrower_id'
 end
