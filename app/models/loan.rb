@@ -10,6 +10,6 @@ class Loan < ApplicationRecord
   end
 
   def status_changed_to_closed
-    status == 'closed' if status_changed?
+    :status == 'closed' if status_changed?
   end
 end

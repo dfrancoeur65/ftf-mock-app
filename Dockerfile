@@ -8,8 +8,6 @@ RUN bundle install
 
 COPY . .
 
-
-
 EXPOSE 8000
 #CMD ["rails", "db:create"]
 #CMD ["rails", "db:migrate"]
