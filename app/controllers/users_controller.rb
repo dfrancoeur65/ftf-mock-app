@@ -1,27 +1,28 @@
 class UsersController < ApplicationController
   def index
-    users = User.order('name DESC')
-    render json: { status: 'Success', message: 'loaded users', data: users }, status: :ok
+    @users = User.order('name DESC')
+    # render json: { status: 'Success', message: 'loaded users', data: users }, status: :ok
   end
 
   def show
-    user = User.find(params[:id])
-    render json: { status: 'Success', message: 'loaded user', data: user }, status: :ok
+    @user = User.find(params[:id])
+    # render json: { status: 'Success', message: 'loaded user', data: user }, status: :ok
   end
 
   def destroy
-    user = User.destroy(params[:id])
-    render json: { status: 'Success', message: 'deleted the user', data: user }, status: :ok
+    @user = User.destroy(params[:id])
+    # render json: { status: 'Success', message: 'deleted the user', data: user }, status: :ok
   end
 
   def create
-    user = User.new(user_params)
+    @user = User.new(user_params)
+    @user.save
 
-    if user.save
-      render json: { status: 'Success', message: 'created a new user', data: user }, status: :ok
-    else
-      render json: { status: 'Error', message: 'did not save the user', data: user.errors }, status: :unprocessable_entry
-    end
+    # if user.save
+    #   # render json: { status: 'Success', message: 'created a new user', data: user }, status: :ok
+    # else
+    #   # render json: { status: 'Error', message: 'did not save the user', data: user.errors }, status: :unprocessable_entry
+    # end
   end
 
   private

@@ -21,12 +21,12 @@
 
             <tbody>
               <% @deals.each do |deal| %>
-              <tr class="warning">
+              <tr class= "<%= 'table-info' if deal.loan.funding_channel == 'sale' %>">
                 <td><%= deal.user.name %></td>
                 <td><%= deal.status_code %></td>
                 <td><%= deal.street %></td>
                 <td><%= number_to_currency(deal.loan.contract_amount) %></td>
-                <td class= "<%= 'table-info' if deal.loan.funding_channel == 'sale' %>" ><%= deal.loan.funding_channel %></td>
+                <td><%= deal.loan.funding_channel %></td>
               </tr>
               <% end %>
             </tbody>

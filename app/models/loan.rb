@@ -1,20 +1,15 @@
 class Loan < ApplicationRecord
+  extend LoanManager
   belongs_to :deal
   enum funding_channel: %i[crowdfund sale undefined]
+  enum status: %i[received under_review term_sheet closing_scheduled closed funded_off_platform fully_funded repaid]
+  after_commit :set_funding_channel, if: :status_changed_to_closed
 
-  def self.loan_volume_current_month
-    Loan.where(origination_date: Time.now.beginning_of_month..Time.now).sum(:contract_amount)
+  def set_funding_channel
+    Loan.determine_loan_funding_channel(id)
   end
 
-  def self.loan_volume_current_year
-    Loan.where(origination_date: Time.now.beginning_of_year..Time.now).sum(:contract_amount)
-  end
-
-  def self.ratio_loan_volume_month_to_year
-    loan_volume_current_month / loan_volume_current_year.round(2).to_s
-  end
-
-  def self.percentage_loans_sold_month
-    Loan.where(origination_date: Time.now.beginning_of_month..Time.now, funding_channel: 'sale').sum(:contract_amount)
+  def status_changed_to_closed
+    status == 'closed' if status_changed?
   end
 end

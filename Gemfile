@@ -21,6 +21,8 @@ gem 'bootstrap'
 
 gem 'jquery-rails'
 
+gem 'rspec-rails', :group => [:development, :test]
+
 gem 'simple_form'
 
 gem 'popper_js'
@@ -43,6 +45,13 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :test do
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'faker'
+  gem 'database_cleaner'
+end
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

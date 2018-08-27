@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= requrire jquery3
+//= require jquery3
 //= require jquery_ujs
 //= require popper
 //= require tether

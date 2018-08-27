@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Users</h1>
+    <h2>Admin Privileges</h2>
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <% User.new.attributes.keys.each do |key| %>
+                <th> <%= key.strip.humanize %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+              <tr>
+                <% user.attributes.values.each do |value| %>
+                  <td>
+                    <%=value%>
+                  </td>
+                <%end%>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <br>
+  </div>
