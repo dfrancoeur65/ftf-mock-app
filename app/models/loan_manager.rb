@@ -1,5 +1,4 @@
 ## Loan Manager to determine funding channel status
-
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
   ## change
