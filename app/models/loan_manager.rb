@@ -1,6 +1,8 @@
+## Loan Manager to determine funding channel status
+
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
-
+  ## change
   def determine_loan_funding_channel(loan_id)
     loan = Loan.find(loan_id)
     if calc_percentage_loans_sold_current_month < LOAN_SALE_TO_CROWDFUND_RATIO
