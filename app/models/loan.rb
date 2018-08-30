@@ -18,6 +18,7 @@ class Loan < ApplicationRecord
   def status_changed_to_closed
     :status == 'closed' if status_changed?
   end
+  scope :loans_in_close, -> { where(status: :closed) }
   scope :originated_today, -> { where(origination_date: Date.now) }
   scope :originated_current_month, -> { where(origination_date: Time.now.beginning_of_month..Time.now) }
   scope :sold, -> { where(funding_channel: 'sale') }
