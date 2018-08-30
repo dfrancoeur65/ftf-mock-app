@@ -3,39 +3,22 @@
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
 
-  # NOTE: instance instead of class method
-  # usage loan = Loan.find (22)
-  # loan.determine_loan_funding_channel
-  def determine_loan_funding_channel # (loan_id)
-    # loan = Loan.find(loan_id)
-    # loan.determine_loan_funding_channel
-    #    loan.save
-    if calc_percentage_loans_sold_current_month < LOAN_SALE_TO_CROWDFUND_RATIO
-      loan.funding_channel = 'sale'
-    else
-      loan.funding_channel = 'crowdfund'
-    end
-    loan.save!
+  def determine_next_loan_funding_channel
+    consider_current_month_activity
   end
 
-  # NOTE:  lets try these as scopes
-  def calculate_loan_volume_current_month
-    Loan.where(origination_date: Time.now.beginning_of_month..Time.now).sum(:contract_amount)
-  end
-
-  def calc_monthly_loan_sold
-    Loan.where(origination_date: Time.now.beginning_of_month..Time.now, funding_channel: 'sale').sum(:contract_amount)
-  end
-
-  def calculate_loan_volume_current_year
-    Loan.where(origination_date: Time.now.beginning_of_year..Time.now).sum(:contract_amount)
-  end
-
-  def calc_ratio_loan_volume_month_to_year
-    calculate_loan_volume_current_month / calculate_loan_volume_current_year.round(2).to_s
-  end
+  private
 
   def calc_percentage_loans_sold_current_month
-    calc_monthly_loan_sold / calculate_loan_volume_current_month
+    Loan.originated_current_month.sold.sum(:contract_amount)\
+    / Loan.originated_current_month.sum(:contract_amount)
+  end
+
+  def consider_current_month_activity
+    if calc_percentage_loans_sold_current_month < LOAN_SALE_TO_CROWDFUND_RATIO
+      Loan.funding_channels[:sale]
+    else
+      Loan.funding_channels[:crowdfund]
+    end
   end
 end
