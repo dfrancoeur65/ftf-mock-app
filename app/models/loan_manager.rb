@@ -1,9 +1,15 @@
 ## Loan Manager to determine funding channel status
+# NOTE:  placement for this - support or services
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
-  ## change
-  def determine_loan_funding_channel(loan_id)
-    loan = Loan.find(loan_id)
+
+  # NOTE: instance instead of class method
+  # usage loan = Loan.find (22)
+  # loan.determine_loan_funding_channel
+  def determine_loan_funding_channel # (loan_id)
+    # loan = Loan.find(loan_id)
+    # loan.determine_loan_funding_channel
+    #    loan.save
     if calc_percentage_loans_sold_current_month < LOAN_SALE_TO_CROWDFUND_RATIO
       loan.funding_channel = 'sale'
     else
@@ -12,6 +18,7 @@ module LoanManager
     loan.save!
   end
 
+  # NOTE:  lets try these as scopes
   def calculate_loan_volume_current_month
     Loan.where(origination_date: Time.now.beginning_of_month..Time.now).sum(:contract_amount)
   end

@@ -1,5 +1,6 @@
 class Loan < ApplicationRecord
-  extend LoanManager
+  # NOTE include of extend
+  include LoanManager
   belongs_to :deal
   enum funding_channel: %i[crowdfund sale undefined]
   enum status: %i[received under_review term_sheet closing_scheduled closed funded_off_platform fully_funded repaid]
