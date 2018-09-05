@@ -16,6 +16,8 @@ module LoanManager
     end
   end
 
+  private
+
   def set_for_crowdfunding
     self.funding_channel = Loan.funding_channels[:crowdfund]
   end
