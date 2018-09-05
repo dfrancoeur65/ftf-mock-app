@@ -1,5 +1,5 @@
 ## Loan Manager to determine funding channel status
-
+## Determines using current month history and construction activity
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
 
