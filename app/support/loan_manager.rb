@@ -18,7 +18,7 @@ module LoanManager
   private
 
   def set_for_crowdfunding
-    self.funding_channel = Loan.funding_channels[:crowdfund]
+    assign_attributes(funding_channel: 'crowdfund')
   end
 
   def large_loan?
@@ -26,7 +26,7 @@ module LoanManager
   end
 
   def set_for_sale
-    self.funding_channel = Loan.funding_channels[:sale]
+    assign_attributes(funding_channel: 'sale')
   end
 
   def construction_heavy_loan?
