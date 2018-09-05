@@ -1,6 +1,5 @@
 ## Loan Manager to determine funding channel status
 ## Determines using current month history and construction activity
-require 'byebug'
 module LoanManager
   LOAN_SALE_TO_CROWDFUND_RATIO = 0.6
   CONSTRUCTION_LOAN_RATIO_THRESHOLD = 0.3
