@@ -1,0 +1,13 @@
+Version: "2"
+
+volumes:
+  db-data:
+    external: false
+
+  services:
+
+    db:
+      environment:
+        POSTGRES_USER:
+        POSTGRES_PASSWORD:
+          
