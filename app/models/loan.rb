@@ -8,6 +8,9 @@ class Loan < ApplicationRecord
   has_many :loan_adjustments
   has_many :construction_draws
   has_many :invoices
+  has_many :processed_construction_draws, -> { where status: 'processed' },
+           class_name: 'ConstructionDraw',
+           foreign_key: 'loan_id'
   has_many :processed_repayments, -> { where(status: 'processed') },
            class_name: 'LoanAdjustment',
            foreign_key: 'loan_id'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181004140521) do
+ActiveRecord::Schema.define(version: 20181004200633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,20 @@ ActiveRecord::Schema.define(version: 20181004140521) do
     t.date "accrual_period_end"
     t.integer "invoice_type"
     t.index ["loan_id"], name: "index_invoices_on_loan_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.bigint "payoff_id"
+    t.integer "item_type"
+    t.bigint "invoice_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "accrual_period_start"
+    t.date "accrual_period_end"
+    t.decimal "amount", precision: 8, scale: 2
+    t.index ["invoice_id"], name: "index_line_items_on_invoice_id"
+    t.index ["payoff_id"], name: "index_line_items_on_payoff_id"
   end
 
   create_table "loan_adjustments", force: :cascade do |t|
