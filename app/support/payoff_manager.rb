@@ -5,17 +5,15 @@ module PayoffManager
   include Days360
   DISCHARGE_FEE = 250
 
-  def create_payoff(date = '1/11/2018')
-    date = Date.parse(date)
-    @payoff = Payoff.new
-    @payoff.loan_id = id
+  def create_payoff(date)
+    @payoff = payoffs.build(
+      payoff_date: date
+    )
     create_interest_line_items(date)
     create_closing_fee_line_items
     create_unused_rehab_budget_line_item
-    @payoff.payoff_date = date
-    @payoff.save
-    @payoff.amount = @payoff.line_items.sum(:amount) + contract_amount
-    @payoff.save
+    @payoff.amount = sum_of_line_items
+    @payoff.save!
   end
 
   private
@@ -33,32 +31,31 @@ module PayoffManager
         accrual_period_start: invoice.accrual_period_start,
         accrual_period_end: invoice.accrual_period_end
       )
-      line_item.save
+      line_item.save!
     end
   end
 
-  def create_estimated_additional_interest_line_items(end_date = 10.days.from_now)
+  def create_estimated_additional_interest_line_items(end_date)
     start_date = Date.today.beginning_of_month
-    end_of_accrual_block = Date.today
-    while end_of_accrual_block < end_date
+
+    while start_date < end_date
       if start_date.end_of_month >= end_date
-        end_of_accrual_block = start_date.end_of_month
         create_estimated_interest_line_item(
-          start_date, end_of_accrual_block
+          start_date, end_date
         )
-        start_date = end_of_accrual_block + 1.day
-      elsif start_date.end_of_month > end_date
-        end_of_accrual_block = end_date
+        start_date = end_date
+      elsif start_date.end_of_month < end_date
         create_estimated_interest_line_item(
-          start_date, end_of_accrual_block
+          start_date, start_date.end_of_month
         )
+        start_date = start_date.end_of_month + 1.day
       end
     end
   end
 
   def create_estimated_interest_line_item(start_date, end_date)
     estimated_amount = calculate_360_interest_between_two_dates(
-      start_date, start_date.end_of_month
+      start_date, end_date
     )
     line_item = @payoff.line_items.build(
       item_type: LineItem.item_types[:estimated_interest],
@@ -66,11 +63,11 @@ module PayoffManager
       accrual_period_start: start_date,
       accrual_period_end: end_date
     )
-    line_item.save
+    line_item.save!
   end
 
   def calculate_360_interest_between_two_dates(beg_date, end_date)
-    num_days = days360(beg_date, end_date) + 1
+    num_days = days360(beg_date, end_date + 1)
     num_days * daily_360_interest_amount
   end
 
@@ -79,7 +76,7 @@ module PayoffManager
       item_type: LineItem.item_types[:discharge_fee],
       amount: DISCHARGE_FEE
     )
-    line_item.save
+    line_item.save!
   end
 
   def create_unused_rehab_budget_line_item
@@ -89,6 +86,10 @@ module PayoffManager
       amount: unused_rehab,
       item_type: LineItem.item_types[:unused_rehab_funds]
     )
-    line_item.save
+    line_item.save!
+  end
+
+  def sum_of_line_items
+    @payoff.line_items.sum(:amount) + contract_amount
   end
 end
