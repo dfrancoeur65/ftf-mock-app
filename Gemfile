@@ -29,6 +29,8 @@ gem 'popper_js'
 
 gem 'tether-rails'
 
+gem 'days360'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

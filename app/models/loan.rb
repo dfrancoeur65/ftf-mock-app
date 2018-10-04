@@ -1,12 +1,19 @@
 ## Loan model
 class Loan < ApplicationRecord
   include LoanManager
+  include PayoffManager
 
   belongs_to :deal
+  has_many :payoffs
   has_many :loan_adjustments
   has_many :construction_draws
   has_many :invoices
-
+  has_many :processed_repayments, -> { where(status: 'processed') },
+           class_name: 'LoanAdjustment',
+           foreign_key: 'loan_id'
+  has_many :outstanding_invoices, -> { where(status: 'outstanding') },
+           class_name: 'Invoice',
+           foreign_key: 'loan_id'
   scope :loans_in_close, -> { where(status: :closed) }
   scope :originated_today, -> { where(origination_date: Date.now) }
   scope :originated_current_month, lambda {
@@ -19,13 +26,17 @@ class Loan < ApplicationRecord
                                     where(origination_date:
                                       Time.now.beginning_of_year..Time.now)
                                   }
+  # scope :outstanding_invoices, -> { where status: 'outstanding' },
+  #       class_name: 'Invoice',
+  #       foreign_key: 'loan_id'
+
   enum funding_channel: %i[crowdfund sale undefined]
   enum product: %i[at_close construction_tranche]
   enum status: %i[received under_review term_sheet
                   closing_scheduled closed funded_off_platform
                   fully_funded repaid]
 
-  after_commit :determine_loan_funding_channel, if: :status_changed_to_closed
+  # after_commit :determine_loan_funding_channel, if: :status_changed_to_closed
 
   def determine_loan_funding_channel
     set_loan_funding_channel
@@ -34,6 +45,10 @@ class Loan < ApplicationRecord
 
   def monthly_interest
     (contract_amount * annual_percentage_rate / 12).round(2)
+  end
+
+  def daily_360_interest_amount
+    (contract_amount * annual_percentage_rate / 360).round(2)
   end
 
   private
