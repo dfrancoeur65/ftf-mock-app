@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :deals
       resources :construction_draws
       resources :loans
-      resource :payoffs
+      resources :payoffs
       resources :line_items
       resources :invoices
     end
