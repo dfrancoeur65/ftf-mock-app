@@ -6,22 +6,22 @@ import OfferingCards from './OfferingCards';
 
 const mapDispatchToOfferingCardsProps = (dispatch, props) =>(
   {
-  onMount:()=>Client.getOfferings(
-    (offerings)=>(
-      dispatch(
-        setAvailableOfferings(offerings)
+    onMount:()=>Client.getOfferings(
+      (offerings)=>(
+        dispatch(
+          setAvailableOfferings(offerings)
+        )
       )
+    ),
+    onInvestmentFormSubmit: (investment) =>(
+      dispatch(addNewInvestment(investment))
     )
-  ),
-  onInvestmentFormSubmit: (investment) =>(
-    dispatch(addNewInvestment(investment))
-  )
-}
+  }
 );
 
 const mapStateToOfferingCardsProps = (state)=>(
   {
-      availableOfferings:state.availableOfferings,
+    availableOfferings:state.availableOfferings,
   }
 )
 

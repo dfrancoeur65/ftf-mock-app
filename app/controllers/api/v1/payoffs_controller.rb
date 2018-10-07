@@ -2,12 +2,12 @@ module Api::V1
   class PayoffsController < ApplicationController
     def index
       @payoffs = Payoff.all
-      render json: @payoffs, include: [:line_items]
+      render json: @payoffs, include: %i[deal]
     end
 
     def show
       @payoff = Payoff.find(params[:id])
-      render json: @payoff
+      render json: @payoff, include: %i[line_items loan]
     end
 
     def destroy

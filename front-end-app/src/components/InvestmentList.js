@@ -19,19 +19,19 @@ class InvestmentList extends React.Component{
     this.props.onMount();
   }
 
-handleCancelledInvestment = (investment) =>{
-  investment.status = 'cancelled';
-  this.props.editInvestment(investment);
-}
+  handleCancelledInvestment = (investment) =>{
+    investment.status = 'cancelled';
+    this.props.editInvestment(investment);
+  }
 
-handleRefundedInvestment = (investment) =>{
-  investment.status = 'refunded';
-  this.props.editInvestment(investment);
-}
-handleInvestedInvestment = (investment) =>{
-  investment.status = 'invested';
-  this.props.editInvestment(investment);
-}
+  handleRefundedInvestment = (investment) =>{
+    investment.status = 'refunded';
+    this.props.editInvestment(investment);
+  }
+  handleInvestedInvestment = (investment) =>{
+    investment.status = 'invested';
+    this.props.editInvestment(investment);
+  }
 
 
 
@@ -39,62 +39,62 @@ handleInvestedInvestment = (investment) =>{
 
   render(){
     return  (
-        <div>
+      <div>
         <h2>My Investments</h2>
         <table id='investmentTable' className = 'ui celled table'>
-        <thead>
-        <tr>
-        {
-          this.state.columns.map((header, index) => (
-            <th key={index}>
-            {header}
-            </th>
-          ))
-        }
-        </tr>
+          <thead>
+            <tr>
+              {
+                this.state.columns.map((header, index) => (
+                  <th key={index}>
+                    {header}
+                  </th>
+                ))
+              }
+            </tr>
 
-        </thead>
-        <tbody>
-        {
-            this.props.investments.map((investment,index) =>
-                (
-                  <tr
+          </thead>
+          <tbody>
+            {
+              this.props.investments.map((investment,index) =>
+              (
+                <tr
                   key={index+1}
                   >
                   <td>
-                  {index+1}
+                    {index+1}
                   </td>
                   <td>
-                  {investment.offering.title}
+                    {investment.offering.title}
                   </td>
                   <td>
-                  {toDollar(investment.amount)}
+                    {toDollar(investment.amount)}
                   </td>
                   <td>
-                  {prettyDates(investment.created_at)}
+                    {prettyDates(investment.created_at)}
                   </td>
                   <td style={{color:investment.status === 'cancelled' ? "red": investment.status==='refunded' ? 'blue' : 'green'}}>
-                  {investment.status}
+                    {investment.status}
                   </td>
                   <td>
-                  <div className='ui button' onClick = {()=>this.handleCancelledInvestment(investment)}>Cancel</div>
+                    <div className='ui button' onClick = {()=>this.handleCancelledInvestment(investment)}>Cancel</div>
                   </td>
                   <td>
-                  <div className='ui button' onClick = {()=>this.handleRefundedInvestment(investment)}>Refund</div>
+                    <div className='ui button' onClick = {()=>this.handleRefundedInvestment(investment)}>Refund</div>
                   </td>
                   <td>
-                  <div className='ui button' onClick = {()=>this.handleInvestedInvestment(investment)}>Invest</div>
+                    <div className='ui button' onClick = {()=>this.handleInvestedInvestment(investment)}>Invest</div>
                   </td>
-                  </tr>
-                )
-                )
-        }
+                </tr>
+              )
+            )
+          }
         </tbody>
-        </table>
+      </table>
 
-        </div>
-      );
-  }
+    </div>
+  );
+}
 
 }
 
