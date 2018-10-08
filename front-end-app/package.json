@@ -9,6 +9,7 @@
     "jest-fetch-mock": "^1.6.5",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-datepicker": "^1.6.0",
     "react-dom": "^16.4.2",
     "react-pure-lifecycle": "^3.0.0",
     "react-redux": "5.0.6",

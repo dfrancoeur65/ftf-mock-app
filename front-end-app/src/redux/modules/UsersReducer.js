@@ -43,6 +43,7 @@ const UsersReducer = (
         users: users,
       }
     }
+
     export function updateUser(id,role){
       return {
         type:UPDATE_USER,

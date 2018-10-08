@@ -10,8 +10,4 @@ const Reducer = combineReducers(
 )
 
 
-
-
-
-
 export default Reducer;

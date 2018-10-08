@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import PayoffsList from './PayoffsList';
+import Payoffs from './Payoffs';
 import Payoff from './Payoff';
 
 
-class PayoffsContainer extends Component {
+class PayoffsContainer extends React.Component {
   state = {
     payoffs:[
       {
@@ -29,31 +29,29 @@ class PayoffsContainer extends Component {
       },
     ],
   }
-  render() {
+  render(){
     const matchPath = this.props.match.path;
+
     return (
       <div className='ui column'>
         <Route
           exact path = '/payoffs'
           component = {()=>(
-            <PayoffsList
-              payoffs={this.state.payoffs}
+            <Payoffs
+              payoffsPathname = {matchPath}
               />
           )}
           />
         <Route
-          path={`payoffs/:payoffId`}
-          render={({match})=> {
-            const payoff = this.state.payoffs.find(
-              (p)=> p.id===match.params.payoffId
-            );
-            return (
-              <Payoff
-                payoff={payoff}
-
-                />
-            );
-          }
+          path={`/payoffs/:payoffId`}
+          component ={({match})=>{
+          return(
+            <Payoff
+              payoff={this.state.payoffs[0]}
+              payoffId = {match.params.payoffId}
+              />
+          );
+        }
         }
         />
     </div>
