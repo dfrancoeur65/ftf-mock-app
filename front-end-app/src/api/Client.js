@@ -75,8 +75,8 @@ function getAllPayoffs(success){
   .then(success)
 }
 
-function createNewPayoff(data){
-  return fetch(`${PAYOFFS_URL}`,{
+function createPayoff(data,success){
+  return fetch(PAYOFFS_URL,{
     method: "POST",
     headers:{
       "Content-Type":"application/json; charset=utf-8",
@@ -84,6 +84,7 @@ function createNewPayoff(data){
     body:JSON.stringify(data),
   })
   .then(parseJSON)
+  .then(success)
 }
 
 function addNewLineItem(data){
@@ -131,7 +132,7 @@ const Client = {
   getPayoff,
   getAllPayoffs,
   addNewLineItem,
-  createNewPayoff,
+  createPayoff,
   createInvestment,
   getUsers,
   updateUser,

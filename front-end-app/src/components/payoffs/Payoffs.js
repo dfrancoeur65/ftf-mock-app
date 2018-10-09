@@ -13,7 +13,7 @@ class Payoffs extends React.Component {
 
   handleFormSubmit = (loan_id,payoff_date) =>{
     console.log("Submitted the new payoff");
-    this.props.createNewPayoff(loan_id,payoff_date)
+    this.props.createPayoff(loan_id,payoff_date)
     this.handleModalClose();
   }
 
@@ -49,7 +49,6 @@ class Payoffs extends React.Component {
             onFormSubmit = {this.handleFormSubmit}
             />}
         modalClose = {this.handleModalClose}
-
         />
       </div>
 

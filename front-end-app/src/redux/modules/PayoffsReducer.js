@@ -19,12 +19,7 @@ const PayoffsReducer = (
   }
 }
 
-export function createNewPayoff(loan_id,payoff_date){
-  var data = {
-    loan_id:loan_id,
-    payoff_date:payoff_date,
-  }
-  var payoff = Client.createNewPayoff(data)
+export function addPayoff(data){
   return {
     type:ADD_NEW_PAYOFF,
     payoff: data,

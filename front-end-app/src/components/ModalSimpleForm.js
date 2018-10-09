@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Modal, Form, Grid} from 'semantic-ui-react';
+import { Modal, Grid} from 'semantic-ui-react';
 
 const inlineStyle = {
   modal : {
