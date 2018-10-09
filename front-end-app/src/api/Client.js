@@ -2,6 +2,8 @@
 const USER_URL = 'api/v1/users';
 const INVESTMENT_URL = 'api/v1/investments';
 const OFFERINGS_URL = 'api/v1/offerings';
+const PAYOFFS_URL = 'api/v1/payoffs';
+
 function getUsers(success) {
   return fetch(USER_URL, {
     accept: 'application/json',
@@ -37,7 +39,6 @@ function getInvestments(success){
     accept:'application/json',
   }).then(checkStatus)
     .then(parseJSON)
-    .then(success)
 }
 
 function addUser(data){
@@ -64,9 +65,15 @@ function getPayoff(id){
     accept: 'application/json',
   }).then(checkStatus)
   .then(parseJSON)
-  .then(success)
 }
 
+function getAllPayoffs(success){
+  return fetch(PAYOFFS_URL,{
+    accept: 'application/json',
+  }).then(checkStatus)
+  .then(parseJSON)
+  .then(success)
+}
 
 function createNewPayoff(data){
   return fetch(`${PAYOFFS_URL}`,{
@@ -76,7 +83,7 @@ function createNewPayoff(data){
     },
     body:JSON.stringify(data),
   })
-  .then(response =>response.json())
+  .then(parseJSON)
 }
 
 function addNewLineItem(data){
@@ -87,7 +94,7 @@ function addNewLineItem(data){
     },
     body:JSON.stringify(data),
   })
-  .then(response =>response.json())
+  .then(parseJSON)
 }
 
 function updateUser(id,data) {
@@ -99,7 +106,7 @@ function updateUser(id,data) {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   })
-  .then(response => response.json()); // parses response to JSON
+  .then(parseJSON); // parses response to JSON
 }
 
 
@@ -122,6 +129,7 @@ function parseJSON(response) {
 
 const Client = {
   getPayoff,
+  getAllPayoffs,
   addNewLineItem,
   createNewPayoff,
   createInvestment,

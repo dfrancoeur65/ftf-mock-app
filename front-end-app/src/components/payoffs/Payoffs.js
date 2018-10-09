@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ModalSimpleForm from '../ModalSimpleForm';
-import PayoffsList from './PayoffsList';
+import List from './List';
 import PayoffForm from './PayoffForm';
 
 
@@ -11,17 +11,20 @@ class Payoffs extends React.Component {
     isModalOpen:false,
   }
 
-  handleFormSubmit = (id,date) =>{
+  handleFormSubmit = (loan_id,payoff_date) =>{
     console.log("Submitted the new payoff");
-    console.log(id,date);
+    this.props.createNewPayoff(loan_id,payoff_date)
     this.handleModalClose();
   }
+
   handleModalClose = ()=>{
     this.setState({isModalOpen:false})
   }
+
   openModal = () =>{
     this.setState({isModalOpen:true})
   }
+
   render () {
 
     return(
@@ -33,8 +36,10 @@ class Payoffs extends React.Component {
         </div>
       </div>
       <div className = 'row'>
-      <PayoffsList
-      payoffsPathname={this.props.payoffsPathname}
+      <List
+        onMount={this.props.onMount}
+        payoffs={this.props.payoffs}
+        payoffsPathname={this.props.payoffsPathname}
       />
       </div>
       <ModalSimpleForm
@@ -50,6 +55,12 @@ class Payoffs extends React.Component {
 
     )
   }
+}
+
+Payoffs.propTypes = {
+  payoffs: PropTypes.array,
+  onMount:PropTypes.func,
+  createNewPayoff:PropTypes.func,
 }
 
 export default Payoffs;

@@ -2,8 +2,9 @@ import Client from '../../api/Client';
 
 const DELETE_LINE_ITEM = 'DELETE_LINE_ITEM';
 const NEW_LINE_ITEM = 'NEW_LINE_ITEM';
-const RECEIVE_PAYMENT = 'RECEIVE_PAYMENT';
-const LOAD_PAYOFF = 'LOAD_PAYOFF';
+const UPDATE_LINE_ITEM = 'UPDATE_LINE_ITEM';
+const UPDATE_PAYOFF = 'UPDATE_PAYOFF';
+const SET_EDITING_PAYOFF = 'SET_EDITING_PAYOFF';
 
 
 const EditingPayoffReducer = (
@@ -11,10 +12,10 @@ const EditingPayoffReducer = (
   action
 ) =>{
   switch(action.type){
-    case UPDATE_PAYOFF:{
+    case SET_EDITING_PAYOFF:{
       return action.payoffs;
     }; break;
-    case UPDATE_PAYOFFS:{
+    case UPDATE_PAYOFF:{
       return action.payoffs;
     }; break;
 

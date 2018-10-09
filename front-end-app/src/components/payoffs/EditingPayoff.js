@@ -7,11 +7,10 @@ import LineItemForm from './LineItemForm';
 const payoff = ExamplePayoff;
 const removable = ['late_fee','discharge_fee'];
 
-class Payoff extends React.Component {
+class EditingPayoff extends React.Component {
 
   state={
     headers:["Type", "Description","Status","Amount","Action"],
-
     isModalOpen:false,
   }
 
@@ -167,4 +166,4 @@ class LineItem extends React.Component {
   }
 }
 
-export default Payoff;
+export default EditingPayoff;

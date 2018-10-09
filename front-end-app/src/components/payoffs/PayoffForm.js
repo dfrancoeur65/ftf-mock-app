@@ -6,18 +6,14 @@ import Deals from './data';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
-
 const source = Deals;
-
-const today = Date.parse("2018-07-28T20:16:14.845Z")
 
 class PayoffForm extends React.Component {
 
   handleFormSubmit = ()=>{
     this.props.onFormSubmit(
-      this.state.loanId,
-      this.state.payoffDate)
+      this.state.loan_id,
+      this.state.payoff_date)
   }
 
   componentWillMount() {
@@ -29,20 +25,20 @@ class PayoffForm extends React.Component {
       isLoading: false,
       results: [],
       value: '',
-      loanId:null,
-      payoffDate: null,
+      loan_id:null,
+      payoff_date: null,
      }
   )
 }
   handleDateChange = (date)=>{
     this.setState({
-      payoffDate: date
+      payoff_date: date
     })
   }
   handleResultSelect = (e, { result }) => this.setState(
     {
       value: result.street,
-      loanId:result.loan_id
+      loan_id:result.loan_id
      }
   )
 
@@ -91,7 +87,7 @@ class PayoffForm extends React.Component {
       <div className='ui field'>
         <label>Select Payoff Date</label>
         <DatePicker
-          selected={this.state.payoffDate}
+          selected={this.state.payoff_date}
           onChange={this.handleDateChange}
           />
       </div>

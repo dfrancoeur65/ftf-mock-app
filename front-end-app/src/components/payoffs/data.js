@@ -14,7 +14,7 @@ const Deals = [{
       "borrower_id": 16,
       "city": "Marlinside",
       "created_at": "2018-07-28T20:16:14.845Z",
-      "loan_id": 37,
+      "loan_id": 24,
       "state": "North Carolina",
       "street": "32740 Howell Trail",
       "updated_at": "2018-07-28T20:16:14.845Z",
