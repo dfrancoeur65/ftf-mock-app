@@ -11,5 +11,6 @@ class LineItem < ApplicationRecord
                      extension_fee
                      unused_deferred_interest
                      unused_rehab_funds
-                     estimated_interest]
+                     estimated_interest
+                     gross_loan_amount]
 end

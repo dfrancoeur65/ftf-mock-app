@@ -9,14 +9,34 @@ module PayoffManager
     @payoff = payoffs.build(
       payoff_date: date
     )
+    create_loan_amount_line_item
+    create_unused_rehab_budget_line_item
     create_interest_line_items(date)
     create_closing_fee_line_items
-    create_unused_rehab_budget_line_item
     @payoff.amount = sum_of_line_items
     @payoff.save!
   end
 
   private
+
+  def create_unused_rehab_budget_line_item
+    unused_rehab = -(rehab_budget_amount -
+      processed_construction_draws.sum(:amount))
+    line_item = @payoff.line_items.build(
+      amount: unused_rehab,
+      item_type: LineItem.item_types[:unused_rehab_funds],
+      status: LineItem.statuses[:closed]
+    )
+    line_item.save!
+  end
+
+  def create_loan_amount_line_item
+    line_item = @payoff.line_items.build(
+      amount: contract_amount,
+      item_type: LineItem.item_types[:gross_loan_amount]
+    )
+    line_item.save!
+  end
 
   def create_interest_line_items(date)
     create_outstanding_interest_line_items
@@ -75,16 +95,6 @@ module PayoffManager
     line_item = @payoff.line_items.build(
       item_type: LineItem.item_types[:discharge_fee],
       amount: DISCHARGE_FEE
-    )
-    line_item.save!
-  end
-
-  def create_unused_rehab_budget_line_item
-    unused_rehab = -(rehab_budget_amount -
-                      processed_construction_draws.sum(:amount))
-    line_item = @payoff.line_items.build(
-      amount: unused_rehab,
-      item_type: LineItem.item_types[:unused_rehab_funds]
     )
     line_item.save!
   end

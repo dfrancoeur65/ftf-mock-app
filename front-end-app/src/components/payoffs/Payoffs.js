@@ -8,7 +8,7 @@ import PayoffForm from './PayoffForm';
 
 class Payoffs extends React.Component {
   state = {
-    isModalOpen:false
+    isModalOpen:false,
   }
 
   handleFormSubmit = (id,date) =>{
