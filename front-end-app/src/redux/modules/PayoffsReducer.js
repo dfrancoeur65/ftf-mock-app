@@ -1,4 +1,4 @@
-import Client from '../../components/Client';
+import Client from '../../api/Client';
 
 const UPDATE_LINE_ITEM = 'UPDATE_LINE_ITEM';
 const NEW_LINE_ITEM = 'NEW_LINE_ITEM';

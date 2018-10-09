@@ -1,4 +1,4 @@
-import Client from '../../components/Client';
+import Client from '../../api/Client';
 
 const SET_INITIAL_USERS = 'SET_INITIAL_USERS'
 const UPDATE_USER = 'UPDATE_USER';

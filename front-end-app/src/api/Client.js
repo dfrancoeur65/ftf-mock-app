@@ -59,6 +59,37 @@ function getOfferings(success){
   .then(success)
 }
 
+function getPayoff(id){
+  return fetch(`${PAYOFFS_URL}/${id}`,{
+    accept: 'application/json',
+  }).then(checkStatus)
+  .then(parseJSON)
+  .then(success)
+}
+
+
+function createNewPayoff(data){
+  return fetch(`${PAYOFFS_URL}`,{
+    method: "POST",
+    headers:{
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  })
+  .then(response =>response.json())
+}
+
+function addNewLineItem(data){
+  return fetch(`${PAYOFFS_URL}/${data.payoff_id}`,{
+    method: "POST",
+    headers: {
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  })
+  .then(response =>response.json())
+}
+
 function updateUser(id,data) {
 
   return fetch(`${USER_URL}/${id}`, {
@@ -88,7 +119,11 @@ function parseJSON(response) {
   return response.json();
 }
 
+
 const Client = {
+  getPayoff,
+  addNewLineItem,
+  createNewPayoff,
   createInvestment,
   getUsers,
   updateUser,

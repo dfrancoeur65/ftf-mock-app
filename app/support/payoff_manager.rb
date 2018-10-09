@@ -5,7 +5,8 @@ module PayoffManager
   include Days360
   DISCHARGE_FEE = 250
 
-  def create_payoff(date)
+  def create_payoff(date_string)
+    date = Date.parse(date_string)
     @payoff = payoffs.build(
       payoff_date: date
     )
@@ -15,6 +16,7 @@ module PayoffManager
     create_closing_fee_line_items
     @payoff.amount = sum_of_line_items
     @payoff.save!
+    @payoff
   end
 
   private
@@ -100,6 +102,6 @@ module PayoffManager
   end
 
   def sum_of_line_items
-    @payoff.line_items.sum(:amount) + contract_amount
+    @payoff.line_items.sum(:amount)
   end
 end

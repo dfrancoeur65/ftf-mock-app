@@ -1,4 +1,4 @@
-import Client from '../../components/Client';
+import Client from '../../api/Client';
 
 const UPDATE_INVESTMENT = 'UPDATE_INVESTMENT';
 const ADD_NEW_INVESTMENT = 'ADD_NEW_INVESTMENT';
