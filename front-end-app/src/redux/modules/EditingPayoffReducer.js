@@ -23,7 +23,7 @@ const EditingPayoffReducer = (
 }
 
 export function deleteLineItem(newUser){
-  Client.
+
   return {
     type:UPDATE_LINE_ITEM,
     user: newUser,
