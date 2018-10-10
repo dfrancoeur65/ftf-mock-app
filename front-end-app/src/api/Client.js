@@ -89,6 +89,17 @@ function updateUser(id,data) {
   .then(parseJSON); // parses response to JSON
 }
 
+function createPayoff(data,success){
+  return fetch(PAYOFFS_URL,{
+    method: "POST",
+    headers:{
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  })
+  .then(parseJSON)
+  .then(success)
+}
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -111,6 +122,7 @@ const Client = {
   getPayoff,
   getAllPayoffs,
   createInvestment,
+  createPayoff,
   getUsers,
   updateUser,
   addUser,
