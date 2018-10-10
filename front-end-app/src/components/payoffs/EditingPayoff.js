@@ -3,13 +3,16 @@ import {Table,Loader, Statistic, Icon, Button} from 'semantic-ui-react';
 import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../../helpers/formatting';
 import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
+import ReceivePaymentForm from './ReceivePaymentForm';
+
 const removable = ['late_fee','discharge_fee','legal_fee'];
 
 class EditingPayoff extends React.Component {
 
   state={
     headers:["Type", "Description","Status","Amount","Action"],
-    isModalOpen:false,
+    isLineItemModalOpen:false,
+    isReceivedPaymentModalOpen:false,
   }
 
   componentDidMount() {
@@ -22,6 +25,11 @@ class EditingPayoff extends React.Component {
     this.resetComponent();
   }
 
+  handleReceivedPayment= (data)=>{
+    this.props.receivePayment(data);
+    this.handleModalClose();
+    this.resetComponent();
+  }
   resetComponent(){
     this.props.onMount()
   }
@@ -31,12 +39,16 @@ class EditingPayoff extends React.Component {
     this.resetComponent()
   }
 
-  modalOpen = ()=>this.setState({
-    isModalOpen:true
+  lineItemModalOpen = ()=>this.setState({
+    isLineItemModalOpen:true
+  })
+  receivedPaymentModalOpen = ()=> this.setState({
+    isReceivedPaymentModalOpen:true
   })
 
   handleModalClose = ()=>this.setState({
-    isModalOpen:false
+    isLineItemModalOpen:false,
+    isReceivedPaymentModalOpen:false,
   })
 
   render () {
@@ -101,14 +113,15 @@ class EditingPayoff extends React.Component {
 
             </Table.Body>
           </Table>
+          
           <div className='row'>
 
-            <Button floated='right' onClick = {this.modalOpen}>
+            <Button floated='right' onClick = {this.lineItemModalOpen}>
               <Icon name='add'/>
               Add new line item
             </Button>
-            <Button floated='right'>
-              <Icon name='add'/>
+            <Button floated='right' onClick={this.receivedPaymentModalOpen}>
+              <Icon name='money'/>
               Receive Payment
             </Button>
           </div>
@@ -118,8 +131,14 @@ class EditingPayoff extends React.Component {
             label="Total Payoff Amount"
             value={toDollar(payoff.amount)}
             />
+
+          <div className='row'>
+            <ReceivedPaymentsList
+              payments={payoff.received_payments}
+              />
+          </div>
           <ModalSimpleForm
-            isOpen={this.state.isModalOpen}
+            isOpen={this.state.isLineItemModalOpen}
             title='Create Line Item'
             form={
               <LineItemForm
@@ -128,7 +147,19 @@ class EditingPayoff extends React.Component {
               />
             }
             modalClose = {this.handleModalClose}
-            />
+          />
+          <ModalSimpleForm
+            isOpen={this.state.isReceivedPaymentModalOpen}
+            title='Receive Payment'
+            form={
+              <ReceivePaymentForm
+                onFormSubmit = {this.handleReceivedPayment}
+                payoffId = {payoff.id}
+              />
+            }
+            modalClose = {this.handleModalClose}
+          />
+
         </div>
       )
     }
@@ -177,5 +208,13 @@ class LineItem extends React.Component {
     )
   }
 }
+
+const ReceivedPaymentsList = ({payments}) =>(
+
+        <div>
+          <h3>No Received Payments</h3>
+        </div>
+
+)
 
 export default EditingPayoff;

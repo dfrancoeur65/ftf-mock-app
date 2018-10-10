@@ -29,7 +29,17 @@ const mapDispatchToEditingPayoffProps = (dispatch,props)=>(
           )
         })
       })
-    }
+    },
+    receivePayment:(data)=>{
+      Client.createReceivedPayment(data,(receivedPayment)=>{
+        Client.getPayoff(receivedPayment.payoff_id,(payoff)=>{
+          dispatch(
+            setEditingPayoff(payoff)
+          )
+        })
+      })
+    },
+
   }
 );
 

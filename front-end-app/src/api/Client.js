@@ -5,6 +5,7 @@ const OFFERINGS_URL = '/api/v1/offerings';
 const PAYOFFS_URL = '/api/v1/payoffs';
 const LINE_ITEMS_URL = '/api/v1/line_items';
 const LOANS_URL = '/api/v1/loans';
+const RECEIVED_PAYMENTS_URL = '/api/v1/received_payments';
 function getUsers(success) {
   return fetch(USER_URL, {
     accept: 'application/json',
@@ -133,6 +134,17 @@ function createLineItem(data,success){
   .then(success)
 }
 
+function createReceivedPayment(data,success){
+  return fetch(RECEIVED_PAYMENTS_URL,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  }).then(parseJSON)
+  .then(success)
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -153,6 +165,7 @@ function parseJSON(response) {
 const Client = {
   getPayoff,
   getLoans,
+  createReceivedPayment,
   getAllPayoffs,
   deleteLineItem,
   createLineItem,

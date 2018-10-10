@@ -9,7 +9,7 @@ module Api::V1
 
     def show
       @payoff = Payoff.find(params[:id])
-      render json: @payoff, include: %i[line_items deal loan]
+      render json: @payoff, include: %i[line_items deal loan received_payments]
     end
 
     def destroy

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :payoffs
       resources :line_items
       resources :invoices
+      resources :received_payments
     end
   end
 end
