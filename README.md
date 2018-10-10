@@ -1,6 +1,6 @@
 # README
 
-# Payoff Manager Project:
+# Payoff Builder Project:
 
   This app includes a full stack Payoff Builder Application. 
   
@@ -27,31 +27,31 @@
 - Receive payments for a payoff
 - View the loan outstanding for a payoff that takes into account all open line items and received payments
  
- #Screenshots
-View Payoffs
+ # Screenshots
+## View Payoffs
  ![image](https://user-images.githubusercontent.com/20305914/46771721-e4413300-ccc2-11e8-9559-4410b10896b6.png)
 
-Draft Payoff
+## Draft Payoff
 ![image](https://user-images.githubusercontent.com/20305914/46771742-020e9800-ccc3-11e8-82f1-232bcc76de3e.png)
 
-Search for deals
+## Search for deals
 ![image](https://user-images.githubusercontent.com/20305914/46771771-194d8580-ccc3-11e8-8e10-1f32950a23b5.png)
 
-Enter Date
+## Enter Date
 ![image](https://user-images.githubusercontent.com/20305914/46771780-28ccce80-ccc3-11e8-887a-355de6298086.png)
 
-Create!
+## Create!
 ![image](https://user-images.githubusercontent.com/20305914/46771809-3e41f880-ccc3-11e8-86fa-981870fdc0c0.png)
 
-View your created payoff
+## View your created payoff
 ![image](https://user-images.githubusercontent.com/20305914/46771861-69c4e300-ccc3-11e8-9f2b-651a8674b1b3.png)
 
-Receive Payments and create new line items:
+## Receive Payments and create new line items:
 ![image](https://user-images.githubusercontent.com/20305914/46771889-819c6700-ccc3-11e8-86b0-f62f6d1466a8.png)
 
 ![image](https://user-images.githubusercontent.com/20305914/46771929-a7297080-ccc3-11e8-87cb-1bb99bbe0e6f.png)
 
-Keep Track of received payments and outstanding payoff amount
+## Keep Track of received payments and outstanding payoff amount
 ![image](https://user-images.githubusercontent.com/20305914/46771953-be685e00-ccc3-11e8-865f-6bf28e304488.png)
 
 # Entity Relationship Diagram 
