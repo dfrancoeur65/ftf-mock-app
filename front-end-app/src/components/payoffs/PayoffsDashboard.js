@@ -1,7 +1,7 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import PayoffsList from './PayoffsList';
-import EditingPayoff from './EditingPayoff';
+import SinglePayoff from './SinglePayoff';
 
 
 class PayoffsDashboard extends React.Component {
@@ -20,10 +20,10 @@ class PayoffsDashboard extends React.Component {
           )}
           />
           <Route
-            path={`/payoffs/:payoffId`}
+            path={`/edit/:payoffId`}
             component ={({match})=>{
             return(
-              <EditingPayoff
+              <SinglePayoff
                 payoffId = {match.params.payoffId}
                 />
             );

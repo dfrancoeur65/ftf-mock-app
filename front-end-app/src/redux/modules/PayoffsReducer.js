@@ -1,7 +1,5 @@
-import Client from '../../api/Client';
 
 const ADD_NEW_PAYOFF = 'ADD_NEW_PAYOFF';
-const DELETE_PAYOFF = 'DELETE_PAYOFF';
 const UPDATE_PAYOFFS = 'UPDATE_PAYOFFS';
 
 const PayoffsReducer = (
@@ -10,7 +8,7 @@ const PayoffsReducer = (
 ) =>{
   switch(action.type){
     case ADD_NEW_PAYOFF:{
-      return [action.payoff,...state];;
+      return [action.payoff,...state];
     }; break;
     case UPDATE_PAYOFFS:{
       return action.payoffs;;

@@ -1,10 +1,8 @@
 import React from 'react'
-import ExamplePayoff from './PayoffData';
-import {Table, Statistic, Icon, Button} from 'semantic-ui-react';
+import {Table,Loader, Statistic, Icon, Button} from 'semantic-ui-react';
 import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../../helpers/formatting';
 import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
-const payoff = ExamplePayoff;
 const removable = ['late_fee','discharge_fee'];
 
 class EditingPayoff extends React.Component {
@@ -12,6 +10,10 @@ class EditingPayoff extends React.Component {
   state={
     headers:["Type", "Description","Status","Amount","Action"],
     isModalOpen:false,
+  }
+
+  componentDidMount() {
+    this.props.onMount(12)
   }
 
   handleAddNewLineItem = (data)=>{
@@ -32,7 +34,10 @@ class EditingPayoff extends React.Component {
   })
 
   render () {
-    return(
+    const payoff = this.props.editingPayoff
+    return !payoff.id ? (
+      <Loader active inline='centered'/>
+    ) : (
       <div>
         <div className='ui card'>
           <div className = 'ui content'>
