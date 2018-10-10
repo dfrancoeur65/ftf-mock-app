@@ -5,8 +5,8 @@ import Client from '../../api/Client';
 
 const mapDispatchToEditingPayoffProps = (dispatch,props)=>(
   {
-    onMount:(payoffId) =>{
-      Client.getPayoff(payoffId,(payoff)=>{
+    onMount:() =>{
+      Client.getPayoff(props.payoffId,(payoff)=>{
         dispatch(
           setEditingPayoff(payoff)
         )

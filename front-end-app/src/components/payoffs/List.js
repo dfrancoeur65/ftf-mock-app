@@ -63,7 +63,7 @@ class List extends React.Component{
                   {'Yes'}
                 </td>
                 <td>
-                  <Link className='ui button' to={`${this.props.payoffsPathname}/${payoff.id}`}>
+                  <Link className='ui button' to={`payoffs/${payoff.id}`}>
                       View
                   </Link>
                 </td>

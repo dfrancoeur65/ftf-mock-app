@@ -2,7 +2,7 @@
 const USER_URL = 'api/v1/users';
 const INVESTMENT_URL = 'api/v1/investments';
 const OFFERINGS_URL = 'api/v1/offerings';
-const PAYOFFS_URL = 'api/v1/payoffs';
+const PAYOFFS_URL = '/api/v1/payoffs';
 
 function getUsers(success) {
   return fetch(USER_URL, {

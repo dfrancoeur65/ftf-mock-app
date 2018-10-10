@@ -20,7 +20,7 @@ class PayoffsDashboard extends React.Component {
           )}
           />
           <Route
-            path={`/edit/:payoffId`}
+            path={'/payoffs/:payoffId'}
             component ={({match})=>{
             return(
               <SinglePayoff

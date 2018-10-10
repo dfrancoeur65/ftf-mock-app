@@ -27,7 +27,6 @@ const mapDispatchToPayoffsProps = (dispatch,props)=>(
       })
     },
     createPayoff:(loan_id,payoff_date)=>createPayoff(loan_id,payoff_date,dispatch),
-    ...props
   }
 );
 
