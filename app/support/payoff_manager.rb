@@ -15,6 +15,7 @@ module PayoffManager
     create_interest_line_items(date)
     create_closing_fee_line_items
     @payoff.amount = sum_of_line_items
+    @payoff.outstanding_amount = sum_of_line_items
     @payoff.save!
     @payoff
   end
