@@ -4,7 +4,7 @@ const INVESTMENT_URL = '/api/v1/investments';
 const OFFERINGS_URL = '/api/v1/offerings';
 const PAYOFFS_URL = '/api/v1/payoffs';
 const LINE_ITEMS_URL = '/api/v1/line_items';
-
+const LOANS_URL = '/api/v1/loans';
 function getUsers(success) {
   return fetch(USER_URL, {
     accept: 'application/json',
@@ -55,6 +55,14 @@ function addUser(data){
 
 function getOfferings(success){
   return fetch(OFFERINGS_URL,{
+    accept: 'application/json',
+  }).then(checkStatus)
+  .then(parseJSON)
+  .then(success)
+}
+
+function getLoans(success){
+  return fetch(LOANS_URL,{
     accept: 'application/json',
   }).then(checkStatus)
   .then(parseJSON)
@@ -144,6 +152,7 @@ function parseJSON(response) {
 
 const Client = {
   getPayoff,
+  getLoans,
   getAllPayoffs,
   deleteLineItem,
   createLineItem,

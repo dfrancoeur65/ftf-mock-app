@@ -2,13 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types'
 import {Search, Button} from 'semantic-ui-react';
-import Deals from './data';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Client from '../../api/Client';
 
-const source = Deals;
 
 class PayoffForm extends React.Component {
+
 
   handleFormSubmit = ()=>{
     this.props.onFormSubmit(
@@ -18,18 +18,27 @@ class PayoffForm extends React.Component {
 
   componentWillMount() {
     this.resetComponent()
+    this.resetResults()
   }
 
-  resetComponent = () => {this.setState(
-    {
-      isLoading: false,
-      results: [],
-      value: '',
-      loan_id:null,
-      payoff_date: null,
-     }
-  )
-}
+  resetComponent = () => {
+      this.setState(
+        {
+          isLoading: false,
+          results: [],
+          value: '',
+          loan_id:null,
+          payoff_date: null,
+        }
+      )
+  }
+  resetResults = () =>{
+    Client.getLoans((loans)=>{
+      this.setState({
+        source:loans
+      })
+    })
+  }
   handleDateChange = (date)=>{
     this.setState({
       payoff_date: date
@@ -37,8 +46,8 @@ class PayoffForm extends React.Component {
   }
   handleResultSelect = (e, { result }) => this.setState(
     {
-      value: result.street,
-      loan_id:result.loan_id
+      value: result.deal.street,
+      loan_id:result.id
      }
   )
 
@@ -49,10 +58,10 @@ class PayoffForm extends React.Component {
       if (this.state.value.length < 1) return this.resetComponent()
 
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result.street)
+      const isMatch = result => re.test(result.deal.street)
       this.setState({
         isLoading: false,
-        results: _.filter(source, isMatch),
+        results: _.filter(this.state.source, isMatch),
       })
     }, 300)
   }
@@ -74,10 +83,10 @@ class PayoffForm extends React.Component {
       aligned='left'
       fluid={false}
       resultRenderer={
-        ({ street,state, city }) => [
+        ({ deal }) => [
           <div key='content' className='content'>
-          {street && <div className='street'>{street}</div>}
-          {state && <div className='state'>{state}</div>}
+          {deal.street && <div className='street'>{deal.street}</div>}
+          {deal.state && <div className='state'>{deal.state}</div>}
           </div>
         ]
       }

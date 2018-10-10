@@ -51,7 +51,8 @@ module PayoffManager
         item_type: invoice.invoice_type,
         amount: invoice.amount_due,
         accrual_period_start: invoice.accrual_period_start,
-        accrual_period_end: invoice.accrual_period_end
+        accrual_period_end: invoice.accrual_period_end,
+        invoice_id: invoice.id
       )
       line_item.save!
     end
