@@ -2,6 +2,8 @@ module Api::V1
   class LineItemsController < ApplicationController
     before_action :set_line_item, only: %i[show update]
     after_action :recalculate_payoff_amount, only: %i[create destroy update]
+    after_action :recalculate_outstanding_amount, only: %i[create destroy]
+
     def index
       @line_items = LineItem.all
       render json: @line_items
@@ -36,6 +38,12 @@ module Api::V1
     def recalculate_payoff_amount
       @payoff = Payoff.find(@line_item.payoff_id)
       @payoff.amount = @payoff.calculate_amount
+      @payoff.save!
+    end
+
+    def recalculate_outstanding_amount
+      @payoff = Payoff.find(@line_item.payoff_id)
+      @payoff.outstanding_amount = @payoff.calculate_outstanding_amount
       @payoff.save!
     end
 
