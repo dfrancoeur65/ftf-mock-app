@@ -1,8 +1,9 @@
 
-const USER_URL = 'api/v1/users';
-const INVESTMENT_URL = 'api/v1/investments';
-const OFFERINGS_URL = 'api/v1/offerings';
+const USER_URL = '/api/v1/users';
+const INVESTMENT_URL = '/api/v1/investments';
+const OFFERINGS_URL = '/api/v1/offerings';
 const PAYOFFS_URL = '/api/v1/payoffs';
+const LINE_ITEMS_URL = '/api/v1/line_items';
 
 function getUsers(success) {
   return fetch(USER_URL, {
@@ -101,6 +102,29 @@ function createPayoff(data,success){
   .then(success)
 }
 
+
+
+function deleteLineItem(data,success){
+  return fetch(`${LINE_ITEMS_URL}/${data}`,{
+    method:"DELETE",
+    accept: 'application/json',
+  }).then(checkStatus)
+  .then(parseJSON)
+  .then(success)
+}
+
+function createLineItem(data,success){
+  return fetch(LINE_ITEMS_URL,{
+    method: "POST",
+    headers:{
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  })
+  .then(parseJSON)
+  .then(success)
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -121,6 +145,8 @@ function parseJSON(response) {
 const Client = {
   getPayoff,
   getAllPayoffs,
+  deleteLineItem,
+  createLineItem,
   createInvestment,
   createPayoff,
   getUsers,

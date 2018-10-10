@@ -3,7 +3,7 @@ import {Table,Loader, Statistic, Icon, Button} from 'semantic-ui-react';
 import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../../helpers/formatting';
 import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
-const removable = ['late_fee','discharge_fee'];
+const removable = ['late_fee','discharge_fee','legal_fee'];
 
 class EditingPayoff extends React.Component {
 
@@ -13,16 +13,22 @@ class EditingPayoff extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onMount(12)
+    this.resetComponent()
   }
 
   handleAddNewLineItem = (data)=>{
-    console.log("add new line item"+data.amount+"and "+data.item_type)
+    this.props.addLineItem(data);
     this.handleModalClose();
+    this.resetComponent();
+  }
+
+  resetComponent(){
+    this.props.onMount()
   }
 
   handleLineItemDelete = (id) =>{
-    console.log("Delete this item"+id)
+    this.props.deleteLineItem(id);
+    this.resetComponent()
   }
 
   modalOpen = ()=>this.setState({
@@ -118,7 +124,8 @@ class EditingPayoff extends React.Component {
             form={
               <LineItemForm
                 onFormSubmit = {this.handleAddNewLineItem}
-                />
+                payoffId = {payoff.id}
+              />
             }
             modalClose = {this.handleModalClose}
             />

@@ -30,6 +30,7 @@ handleAmountChange = event =>{
 
   resetComponent = () => this.setState({
       form:{
+      payoff_id:this.props.payoffId,
       item_type: null,
       amount:null,
     }

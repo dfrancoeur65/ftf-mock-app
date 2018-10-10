@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {setEditingPayoff} from '../../redux/modules/EditingPayoffReducer';
+import {setEditingPayoff, updateEditingPayoff} from '../../redux/modules/EditingPayoffReducer';
 import EditingPayoff from './EditingPayoff';
 import Client from '../../api/Client';
 
@@ -12,6 +12,24 @@ const mapDispatchToEditingPayoffProps = (dispatch,props)=>(
         )
       })
     },
+    deleteLineItem:(id)=>{
+      Client.deleteLineItem(id,(lineItem)=>{
+        Client.getPayoff(lineItem.payoff_id,(payoff)=>{
+          dispatch(
+            setEditingPayoff(payoff)
+          )
+        })
+      })
+    },
+    addLineItem:(data)=>{
+      Client.createLineItem(data,(lineItem)=>{
+        Client.getPayoff(lineItem.payoff_id,(payoff)=>{
+          dispatch(
+            setEditingPayoff(payoff)
+          )
+        })
+      })
+    }
   }
 );
 
