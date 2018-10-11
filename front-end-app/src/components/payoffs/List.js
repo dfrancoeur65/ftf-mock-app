@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 class List extends React.Component{
   state = {
-    headers:["Payoff Id","Created","Payoff Date","Title","Payoff Amount","Status","Reviewed","Current","Action"],
+    headers:["Payoff Id","Created","Payoff Date","Title","Payoff Amount","Status","Current","Action"],
   }
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class List extends React.Component{
                   {prettyDates(payoff.payoff_date)}
                 </td>
                 <td>
-                  {snakeCaseToRegular(payoff.deal.street)}
+                  {payoff.deal.street}
                 </td>
                 <td>
                   {toDollar(payoff.amount)}
@@ -56,9 +56,7 @@ class List extends React.Component{
                 <td style={{color:payoff.status === 'draft' ? "blue": payoff.status==='sent' ? 'orange' : 'green'}}>
                   {snakeCaseToRegular(payoff.status)}
                 </td>
-                <td>
-                  {payoff.reviewed ? 'Reviewed':'Not Reviewed'}
-                </td>
+
                 <td>
                   {'Yes'}
                 </td>
