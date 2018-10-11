@@ -14,7 +14,7 @@ const TopBar = () => (
           <h1
             className = 'ui blue header'
             style={ {marginTop:'10px'}}
-            ><Link to='/'>Welcome to Fund That Flip</Link>
+            ><Link to='/'>Welcome to Funding That Finished RE</Link>
           </h1>
         </div>
     <div className='ui secondary horizontal menu'>

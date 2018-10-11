@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181010203851) do
+ActiveRecord::Schema.define(version: 20181010230956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "accounts", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "construction_draws", force: :cascade do |t|
     t.decimal "amount"
@@ -140,19 +134,6 @@ ActiveRecord::Schema.define(version: 20181010203851) do
     t.index ["payoff_id"], name: "index_received_payments_on_payoff_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.integer "type"
-    t.integer "status", default: 0
-    t.bigint "origin_account_id_id"
-    t.bigint "destination_account_id_id"
-    t.decimal "amount"
-    t.date "processed_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["destination_account_id_id"], name: "index_transactions_on_destination_account_id_id"
-    t.index ["origin_account_id_id"], name: "index_transactions_on_origin_account_id_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -168,6 +149,4 @@ ActiveRecord::Schema.define(version: 20181010203851) do
   add_foreign_key "investments", "users"
   add_foreign_key "loans", "deals"
   add_foreign_key "offerings", "loans"
-  add_foreign_key "transactions", "accounts", column: "destination_account_id_id"
-  add_foreign_key "transactions", "accounts", column: "origin_account_id_id"
 end
