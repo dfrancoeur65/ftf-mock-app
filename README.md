@@ -29,7 +29,9 @@
  
  # Screenshots
 ## View Payoffs
- ![image](https://user-images.githubusercontent.com/20305914/46771721-e4413300-ccc2-11e8-9559-4410b10896b6.png)
+
+![image](https://user-images.githubusercontent.com/20305914/46772867-4c464800-ccc8-11e8-971c-f57f1214f200.png)
+
 
 ## Draft Payoff
 ![image](https://user-images.githubusercontent.com/20305914/46771742-020e9800-ccc3-11e8-82f1-232bcc76de3e.png)
