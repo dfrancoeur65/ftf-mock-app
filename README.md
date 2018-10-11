@@ -26,6 +26,13 @@
 - Delete line items from payoff
 - Receive payments for a payoff
 - View the loan outstanding for a payoff that takes into account all open line items and received payments
+
+V.2 What I would add:
+- Loan adjustments
+- interest for dollar weighted deals (ie. construction tranche, loan adjustments)
+- Export to pdf
+- Send email button
+- Payoff Builder available for borrowers to access
  
  # Screenshots
 ## View Payoffs
