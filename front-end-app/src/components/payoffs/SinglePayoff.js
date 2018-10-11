@@ -39,6 +39,15 @@ const mapDispatchToEditingPayoffProps = (dispatch,props)=>(
         })
       })
     },
+    changeStatus:(data)=>{
+      Client.changePayoffStatus(data,(payoff)=>{
+        Client.getPayoff(payoff.id,(payoff)=>{
+          dispatch(
+            setEditingPayoff(payoff)
+          )
+        })
+      })
+    },
 
   }
 );

@@ -85,7 +85,7 @@ class PayoffForm extends React.Component {
       resultRenderer={
         ({ deal }) => [
           <div key='content' className='content'>
-          {deal.street && <div className='street'>{deal.street}</div>}
+          {deal.street && <div className='street'>{`#${deal.id}, ${deal.street}`}</div>}
           {deal.state && <div className='state'>{deal.state}</div>}
           </div>
         ]

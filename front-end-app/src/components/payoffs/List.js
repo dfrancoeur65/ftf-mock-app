@@ -1,5 +1,5 @@
 import React from 'react';
-import {toDollar,prettyDates} from '../../helpers/formatting';
+import {toDollar,prettyDates,snakeCaseToRegular} from '../../helpers/formatting';
 import { Link } from 'react-router-dom';
 
 
@@ -48,13 +48,13 @@ class List extends React.Component{
                   {prettyDates(payoff.payoff_date)}
                 </td>
                 <td>
-                  {payoff.deal.street}
+                  {snakeCaseToRegular(payoff.deal.street)}
                 </td>
                 <td>
                   {toDollar(payoff.amount)}
                 </td>
-                <td>
-                  {payoff.status}
+                <td style={{color:payoff.status === 'draft' ? "blue": payoff.status==='sent' ? 'orange' : 'green'}}>
+                  {snakeCaseToRegular(payoff.status)}
                 </td>
                 <td>
                   {payoff.reviewed ? 'Reviewed':'Not Reviewed'}

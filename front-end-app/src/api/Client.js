@@ -144,6 +144,16 @@ function createReceivedPayment(data,success){
   }).then(parseJSON)
   .then(success)
 }
+function changePayoffStatus(data,success){
+  return fetch(`${PAYOFFS_URL}/${data.id}`,{
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json; charset=utf-8",
+    },
+    body:JSON.stringify(data),
+  }).then(parseJSON)
+  .then(success)
+}
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -164,6 +174,7 @@ function parseJSON(response) {
 
 const Client = {
   getPayoff,
+  changePayoffStatus,
   getLoans,
   createReceivedPayment,
   getAllPayoffs,

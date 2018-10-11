@@ -22,6 +22,13 @@ module Api::V1
       render json: @payoff, include: %i[deal]
     end
 
+    def update
+      @payoff = Payoff.find(params[:id])
+      @payoff.update(payoff_params)
+      @payoff.save!
+      render json: @payoff, include: %i[deal]
+    end
+
     private
 
     def set_loan
@@ -35,7 +42,7 @@ module Api::V1
     end
 
     def payoff_params
-      params.permit(:id, :loan_id, :payoff_date)
+      params.permit(:id, :status, :loan_id, :payoff_date)
     end
   end
 end

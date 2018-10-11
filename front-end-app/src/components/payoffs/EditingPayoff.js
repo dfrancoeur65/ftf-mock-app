@@ -24,6 +24,13 @@ class EditingPayoff extends React.Component {
     this.handleModalClose();
     this.resetComponent();
   }
+  handleStatusChange = event =>{
+      this.props.changeStatus({
+          id:this.props.editingPayoff.id,
+          status:event.target.value,
+        })
+      this.resetComponent();
+  }
 
   handleReceivedPayment= (data)=>{
     this.props.receivePayment(data);
@@ -57,6 +64,8 @@ class EditingPayoff extends React.Component {
       <Loader active inline='centered'/>
     ) : (
       <div className='ui grid'>
+        <div className='row'>
+
         <div className='ui card'>
           <div className = 'ui content'>
             <div className='header'>
@@ -85,12 +94,35 @@ class EditingPayoff extends React.Component {
                       {prettyDates(payoff.payoff_date)}
                     </td>
                   </tr>
+                  <tr>
+                    <th>
+                      Status:
+                    </th>
+                    <td>
+                      <select value={payoff.status} onChange={this.handleStatusChange}>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="draft">
+                          Draft
+                        </option>
+                        <option value="sent">
+                          Sent
+                        </option>
+                        <option value="received">
+                          Received
+                        </option>
+                        <option value="reviewed">
+                          Reviewed
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
 
           </div>
         </div>
+      </div>
         <Table celled selectable>
           <Table.Header>
             <Table.Row>
