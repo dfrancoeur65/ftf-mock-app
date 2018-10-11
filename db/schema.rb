@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181010230956) do
+ActiveRecord::Schema.define(version: 20181011221829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 20181010230956) do
   end
 
   create_table "payoffs", force: :cascade do |t|
-    t.decimal "amount"
     t.integer "status", default: 0
     t.date "payoff_date"
     t.boolean "reviewed"
@@ -121,7 +120,6 @@ ActiveRecord::Schema.define(version: 20181010230956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "amount_received", precision: 8, scale: 2
-    t.decimal "outstanding_amount", precision: 8, scale: 2
     t.index ["loan_id"], name: "index_payoffs_on_loan_id"
   end
 
