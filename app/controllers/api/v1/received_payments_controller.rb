@@ -1,6 +1,5 @@
 module Api::V1
   class ReceivedPaymentsController < ApplicationController
-    after_action :recalculate_outstanding_amount, only: %i[create destroy]
     def index
       @received_payments = ReceivedPayment.all
       render json: @received_payments
@@ -23,12 +22,6 @@ module Api::V1
     end
 
     private
-
-    def recalculate_outstanding_amount
-      @payoff = Payoff.find(@received_payment.payoff_id)
-      @payoff.outstanding_amount = @payoff.calculate_outstanding_amount
-      @payoff.save!
-    end
 
     def received_payment_params
       params.permit(:id, :amount, :payoff_id, :date_received)

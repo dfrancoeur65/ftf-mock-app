@@ -1,15 +1,16 @@
 module Api::V1
   class PayoffsController < ApplicationController
     before_action :set_loan, only: %i[create]
-    before_action :recalculate_payoff_amount, only: %i[show]
     def index
       @payoffs = Payoff.all
-      render json: @payoffs, include: %i[deal]
+      render json: @payoffs.to_json(methods: %i[amount outstanding_amount],
+                                    include: %i[deal])
     end
 
     def show
       @payoff = Payoff.find(params[:id])
-      render json: @payoff, include: %i[line_items deal loan received_payments]
+      render json: @payoff.to_json(methods: %i[amount outstanding_amount],
+                                   include: %i[line_items deal loan received_payments])
     end
 
     def destroy
@@ -33,12 +34,6 @@ module Api::V1
 
     def set_loan
       @loan = Loan.find(params[:loan_id])
-    end
-
-    def recalculate_payoff_amount
-      @payoff = Payoff.find(params[:id])
-      @payoff.amount = @payoff.calculate_amount
-      @payoff.save!
     end
 
     def payoff_params

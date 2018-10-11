@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-10.times do |index|
-  loan = Loan.find(39 + index)
+13.times do |index|
+  loan = Loan.find(10 + index)
   2.times do
     cd = ConstructionDraw.new
     cd.amount = loan.rehab_budget_amount * 0.2
