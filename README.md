@@ -81,6 +81,7 @@ This app includes the following entities:
 
 
   # Get it started:
+  # Live on development branch
   ```sh
  $ clone repo
  $ bundle install
