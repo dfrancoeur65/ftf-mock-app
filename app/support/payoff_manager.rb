@@ -14,8 +14,6 @@ module PayoffManager
     create_unused_rehab_budget_line_item
     create_interest_line_items(date)
     create_closing_fee_line_items
-    @payoff.amount = sum_of_line_items
-    @payoff.outstanding_amount = sum_of_line_items
     @payoff.save!
     @payoff
   end
@@ -101,9 +99,5 @@ module PayoffManager
       amount: DISCHARGE_FEE
     )
     line_item.save!
-  end
-
-  def sum_of_line_items
-    @payoff.line_items.sum(:amount)
   end
 end
