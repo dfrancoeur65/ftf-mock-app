@@ -1,6 +1,7 @@
 import React from 'react';
 import {toDollar,prettyDates,snakeCaseToRegular} from '../../helpers/formatting';
 import { Link } from 'react-router-dom';
+import {Loader} from 'semantic-ui-react';
 
 
 
@@ -18,7 +19,9 @@ class List extends React.Component{
   }
   render(){
     const payoffs = this.props.payoffs
-    return  (
+    return  !payoffs.length ? (
+      <Loader active inline='centered'/>
+    ):(
       <div>
         <h2>Payoffs</h2>
         <table className='ui celled fixed table'>
