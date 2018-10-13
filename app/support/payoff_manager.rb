@@ -1,6 +1,6 @@
 ## Loan Manager to determine funding channel status
 ## Determines using current month history and construction activity
-require 'byebug'
+
 module PayoffManager
   include Days360
   DISCHARGE_FEE = 250
