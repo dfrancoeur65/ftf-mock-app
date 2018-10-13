@@ -16,7 +16,7 @@ end
 
 20.times do
   deal = Deal.new(
-    borrower_id: Faker::Number.between(1, 30),
+    borrower_id: Faker::Number.between(31, 55),
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
@@ -27,7 +27,7 @@ end
 
 10.times do
   deal = Deal.new(
-    borrower_id: Faker::Number.between(1, 30),
+    borrower_id: Faker::Number.between(31, 55),
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
@@ -38,7 +38,7 @@ end
 
 10.times do
   deal = Deal.new(
-    borrower_id: Faker::Number.between(1, 30),
+    borrower_id: Faker::Number.between(31, 55),
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
@@ -49,7 +49,7 @@ end
 
 40.times do |index|
   loan = Loan.new(
-    deal_id: index + 1,
+    deal_id: 41 + index,
     contract_amount: Faker::Number.between(100, 500) * 1000,
     origination_date: Faker::Date.between(70.days.ago, Date.today),
     annual_percentage_rate: Faker::Number.between(80, 130) / 1000.0,
@@ -60,7 +60,7 @@ end
 end
 
 20.times do |index|
-  loan = Loan.find(1 + index)
+  loan = Loan.find(41 + index)
   2.times do
     cd = ConstructionDraw.new
     cd.amount = loan.rehab_budget_amount * 0.2
