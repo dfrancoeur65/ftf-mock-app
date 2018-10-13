@@ -1,18 +1,10 @@
 
-const USER_URL = '/api/v1/users';
 const INVESTMENT_URL = '/api/v1/investments';
 const OFFERINGS_URL = '/api/v1/offerings';
 const PAYOFFS_URL = '/api/v1/payoffs';
 const LINE_ITEMS_URL = '/api/v1/line_items';
 const LOANS_URL = '/api/v1/loans';
 const RECEIVED_PAYMENTS_URL = '/api/v1/received_payments';
-function getUsers(success) {
-  return fetch(USER_URL, {
-    accept: 'application/json',
-  }).then(checkStatus)
-    .then(parseJSON)
-    .then(success);
-}
 
 function createInvestment(data){
   return fetch(INVESTMENT_URL,{
@@ -43,16 +35,6 @@ function getInvestments(success){
     .then(parseJSON)
 }
 
-function addUser(data){
-  return fetch(USER_URL,{
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json; charset=utf-8",
-    },
-    body:JSON.stringify(data),
-  }).then(checkStatus)
-    .then(parseJSON)
-}
 
 function getOfferings(success){
   return fetch(OFFERINGS_URL,{
@@ -87,17 +69,6 @@ function getPayoff(data,success){
 }
 
 
-function updateUser(id,data) {
-
-  return fetch(`${USER_URL}/${id}`, {
-    method: "PUT", //
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  })
-  .then(parseJSON); // parses response to JSON
-}
 
 function createPayoff(data,success){
   return fetch(PAYOFFS_URL,{
@@ -182,9 +153,6 @@ const Client = {
   createLineItem,
   createInvestment,
   createPayoff,
-  getUsers,
-  updateUser,
-  addUser,
   getOfferings,
   getInvestments,
   updateInvestment,

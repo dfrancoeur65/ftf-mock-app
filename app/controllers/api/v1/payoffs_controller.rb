@@ -20,7 +20,8 @@ module Api::V1
 
     def create
       @payoff = @loan.create_payoff(params[:payoff_date])
-      render json: @payoff, include: %i[deal]
+      render json: @payoff.to_json(methods: %i[amount outstanding_amount],
+                                   include: %i[deal])
     end
 
     def update

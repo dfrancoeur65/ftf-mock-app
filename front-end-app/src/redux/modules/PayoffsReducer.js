@@ -31,6 +31,14 @@ export const updatePayoffs =(payoffs)=>{
       payoffs:payoffs,
     }
 }
+export const createPayoff = (data, dispatch) =>{
+  Client.createPayoff(data,(payoff)=>{
+    dispatch(
+      addPayoff(payoff)
+    )
+  })
+}
+
 export const getPayoffs = dispatch =>{
   Client.getAllPayoffs((payoffs)=>{
     dispatch(
