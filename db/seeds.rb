@@ -6,9 +6,66 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+30.times do
+  user = User.new(
+    name: Faker::Name.name,
+    email: Faker::Internet.email
+  )
+  user.save!
+end
 
-13.times do |index|
-  loan = Loan.find(10 + index)
+20.times do
+  deal = Deal.new(
+    borrower_id: Faker::Number.between(1, 30),
+    status_code: 6,
+
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip_code: Faker::Address.zip_code
+  )
+  deal.save!
+end
+
+10.times do
+  deal = Deal.new(
+    borrower_id: Faker::Number.between(1, 30),
+    status_code: 5,
+
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip_code: Faker::Address.zip_code
+  )
+  deal.save!
+end
+
+10.times do
+  deal = Deal.new(
+    borrower_id: Faker::Number.between(1, 30),
+    status_code: 6,
+    street: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: Faker::Address.state,
+    zip_code: Faker::Address.zip_code
+  )
+  deal.save!
+end
+
+40.times do |index|
+  loan = Loan.new(
+    deal_id: index + 1,
+    contract_amount: Faker::Number.between(100, 500) * 1000,
+    origination_date: Faker::Date.between(70.days.ago, Date.today),
+    annual_percentage_rate: Faker::Number.between(80, 130) / 10.round(2),
+    origination_fee_percentage_rate: Faker::Number.between(20, 40) / 10.round(2)
+  )
+  loan.rehab_budget_amount = Faker::Number.between(1, 5) * 0.1 * loan.contract_amount
+  loan.save!
+end
+
+20.times do |index|
+  loan = Loan.find(1 + index)
   2.times do
     cd = ConstructionDraw.new
     cd.amount = loan.rehab_budget_amount * 0.2
@@ -51,7 +108,7 @@ require 'faker'
     invoice.save!
   end
 
-  1.times do
+  2.times do
     invoice = Invoice.new
     invoice.loan_id = loan.id
     invoice.amount = loan.monthly_interest * 0.06
