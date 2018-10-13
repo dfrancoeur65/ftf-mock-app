@@ -1,3 +1,4 @@
+import Client from '../../api/Client';
 
 const ADD_NEW_PAYOFF = 'ADD_NEW_PAYOFF';
 const UPDATE_PAYOFFS = 'UPDATE_PAYOFFS';
@@ -24,11 +25,20 @@ export function addPayoff(data){
   }
 }
 
-export function loadPayoffs(payoffs){
+export const updatePayoffs =(payoffs)=>{
     return {
       type:UPDATE_PAYOFFS,
       payoffs:payoffs,
     }
+}
+export const getPayoffs = dispatch =>{
+  Client.getAllPayoffs((payoffs)=>{
+    dispatch(
+      updatePayoffs(
+        payoffs
+      )
+    )
+  })
 }
 
 export default PayoffsReducer;

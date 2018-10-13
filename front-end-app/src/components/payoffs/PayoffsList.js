@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {addPayoff,loadPayoffs} from '../../redux/modules/PayoffsReducer';
+import {addPayoff,getPayoffs} from '../../redux/modules/PayoffsReducer';
 import Payoffs from './Payoffs';
 import Client from '../../api/Client';
 
@@ -19,13 +19,7 @@ function createPayoff(loan_id,payoff_date,dispatch){
 
 const mapDispatchToPayoffsProps = (dispatch,props)=>(
   {
-    onMount:() =>{
-      Client.getAllPayoffs((payoffs)=>{
-        dispatch(
-          loadPayoffs(payoffs)
-        )
-      })
-    },
+    onMount:() => getPayoffs(dispatch),
     createPayoff:(loan_id,payoff_date)=>createPayoff(loan_id,payoff_date,dispatch),
   }
 );
