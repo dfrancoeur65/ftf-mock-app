@@ -12,14 +12,7 @@
     "deploy":"cp -a front-end-app/build/. public/",
     "postinstall":"npm run build && npm run deploy && echo 'front end app built!'"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dfrancoeur65/ftf-mock-app.git"
-  },
+
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dfrancoeur65/ftf-mock-app/issues"
-  },
-  "homepage": "https://github.com/dfrancoeur65/ftf-mock-app#readme"
-}
+  "license": "ISC"
+  }
