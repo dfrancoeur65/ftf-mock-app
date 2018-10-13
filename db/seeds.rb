@@ -17,8 +17,6 @@ end
 20.times do
   deal = Deal.new(
     borrower_id: Faker::Number.between(1, 30),
-    status_code: 6,
-
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
@@ -30,8 +28,6 @@ end
 10.times do
   deal = Deal.new(
     borrower_id: Faker::Number.between(1, 30),
-    status_code: 5,
-
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
@@ -43,7 +39,6 @@ end
 10.times do
   deal = Deal.new(
     borrower_id: Faker::Number.between(1, 30),
-    status_code: 6,
     street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
