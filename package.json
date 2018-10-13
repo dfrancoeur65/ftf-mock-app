@@ -12,7 +12,6 @@
     "deploy":"cp -a front-end-app/build/. public/",
     "postinstall":"npm run build && npm run deploy && echo 'front end app built!'"
   },
-
   "author": "",
   "license": "ISC"
   }
