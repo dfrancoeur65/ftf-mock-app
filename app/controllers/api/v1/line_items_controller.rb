@@ -13,11 +13,10 @@ module Api::V1
 
     def update
       @line_item.update(line_item_params)
-      @line_item.save!
     end
 
     def destroy
-      @line_item = LineItem.destroy(params[:id])
+      @line_item = LineItem.destroy(line_item_params[:id])
       render json: @line_item
     end
 

@@ -14,7 +14,6 @@ module PayoffManager
     create_unused_rehab_budget_line_item
     create_interest_line_items(date)
     create_closing_fee_line_items
-    @payoff.save!
     @payoff
   end
 
