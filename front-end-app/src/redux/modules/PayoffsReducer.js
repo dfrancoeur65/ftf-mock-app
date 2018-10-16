@@ -10,10 +10,10 @@ const PayoffsReducer = (
   switch(action.type){
     case ADD_NEW_PAYOFF:{
       return [action.payoff,...state];
-    }; break;
+    }; 
     case UPDATE_PAYOFFS:{
       return action.payoffs;;
-    }; break;
+    };
     default: return state;
   }
 }

@@ -5,6 +5,9 @@ const PAYOFFS_URL = '/api/v1/payoffs';
 const LINE_ITEMS_URL = '/api/v1/line_items';
 const LOANS_URL = '/api/v1/loans';
 const RECEIVED_PAYMENTS_URL = '/api/v1/received_payments';
+const CONSTRUCTION_DRAWS_URL = '/api/v1/construction_draws';
+const DEALS_ACCOUNTING_URL = '/api/v1/deals-accounting';
+
 
 function createInvestment(data){
   return fetch(INVESTMENT_URL,{
@@ -126,6 +129,14 @@ function changePayoffStatus(data,success){
   .then(success)
 }
 
+function getDeals(page =1,success){
+  return fetch(`${DEALS_ACCOUNTING_URL}?page=${page}`,{
+    accept: 'application/json',
+  }).then(checkStatus)
+  .then(parseJSON)
+  .then(success)
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -154,8 +165,7 @@ const Client = {
   createInvestment,
   createPayoff,
   getOfferings,
-  getInvestments,
-  updateInvestment,
+  getDeals,
   };
 
 export default Client;

@@ -4,8 +4,13 @@ import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../.
 import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
 import ReceivePaymentForm from './ReceivePaymentForm';
+import LineItem from './LineItem'
 
 const removable = ['late_fee','discharge_fee','legal_fee'];
+
+function isRemovable(item){
+  return removable.includes(item.item_type)
+}
 
 class EditingPayoff extends React.Component {
 
@@ -20,30 +25,29 @@ class EditingPayoff extends React.Component {
   }
 
   handleAddNewLineItem = (data)=>{
-    this.props.addLineItem(data);
+    this.props.onAddLineItem(data);
     this.handleModalClose();
-    this.resetComponent();
+
   }
   handleStatusChange = event =>{
-      this.props.changeStatus({
-          id:this.props.editingPayoff.id,
-          status:event.target.value,
-        })
-      this.resetComponent();
+    this.props.onStatusChange({
+      id:this.props.editingPayoff.id,
+      status:event.target.value,
+    })
   }
 
   handleReceivedPayment= (data)=>{
-    this.props.receivePayment(data);
+    this.props.onReceivePayment(data);
     this.handleModalClose();
-    this.resetComponent();
+
   }
   resetComponent(){
     this.props.onMount()
   }
 
   handleLineItemDelete = (id) =>{
-    this.props.deleteLineItem(id);
-    this.resetComponent()
+    this.props.onDeleteLineItem(id);
+
   }
 
   lineItemModalOpen = ()=>this.setState({
@@ -66,63 +70,61 @@ class EditingPayoff extends React.Component {
       <div className='ui grid'>
         <div className='row'>
 
-        <div className='ui card'>
-          <div className = 'ui content'>
-            <div className='header'>
-              Payoff Details
+          <div className='ui card'>
+            <div className = 'ui content'>
+              <div className='header'>
+                Payoff Details
+              </div>
+              <div className='meta'>
+                Loan: {payoff.deal.street}
+              </div>
+              <div className='description'>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>
+                        Created At:
+                      </th>
+                      <td>
+                        {prettyDates(payoff.created_at)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>
+                        Payoff Date:
+                      </th>
+                      <td>
+                        {prettyDates(payoff.payoff_date)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>
+                        Status:
+                      </th>
+                      <td>
+                        <select value={payoff.status} onChange={this.handleStatusChange}>
+                          <option value="" disabled selected>Select Type</option>
+                          <option value="draft">
+                            Draft
+                          </option>
+                          <option value="sent">
+                            Sent
+                          </option>
+                          <option value="received">
+                            Received
+                          </option>
+                          <option value="reviewed">
+                            Reviewed
+                          </option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div className='meta'>
-              Loan: {payoff.deal.street}
-            </div>
-            <div className='description'>
-              <table>
-                <tbody>
-
-                  <tr>
-                    <th>
-                      Created At:
-                    </th>
-                    <td>
-                      {prettyDates(payoff.created_at)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>
-                      Payoff Date:
-                    </th>
-                    <td>
-                      {prettyDates(payoff.payoff_date)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>
-                      Status:
-                    </th>
-                    <td>
-                      <select value={payoff.status} onChange={this.handleStatusChange}>
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="draft">
-                          Draft
-                        </option>
-                        <option value="sent">
-                          Sent
-                        </option>
-                        <option value="received">
-                          Received
-                        </option>
-                        <option value="reviewed">
-                          Reviewed
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
           </div>
         </div>
-      </div>
         <Table celled selectable>
           <Table.Header>
             <Table.Row>
@@ -139,6 +141,7 @@ class EditingPayoff extends React.Component {
                 <LineItem
                   key={index}
                   item={lineItem}
+                  isRemovable={isRemovable}
                   deleteLineItem={this.handleLineItemDelete}
                   />
               ))}
@@ -172,8 +175,8 @@ class EditingPayoff extends React.Component {
           </div>
 
           <div className='row'>
-              <div className = 'right floated column'>
-                <div className='row'>
+            <div className = 'right floated column'>
+              <div className='row'>
                 <ReceivedPaymentsList
                   payments={payoff.received_payments}
                   />
@@ -186,7 +189,7 @@ class EditingPayoff extends React.Component {
                   value={toDollar(payoff.outstanding_amount)}
                   />
               </div>
-              </div>
+            </div>
           </div>
           <ModalSimpleForm
             isOpen={this.state.isLineItemModalOpen}
@@ -216,50 +219,6 @@ class EditingPayoff extends React.Component {
     }
   }
 
-
-  const Content = (props)=>(
-    <div className='ui content'>
-      {
-        props.item.accrual_period_start && <div className='accrual-period'>
-        Accrual Period: {toMonthYearString(props.item.accrual_period_start)}
-      </div>
-    }
-    {
-      props.item.invoice_id && <div className='invoice'>
-      Invoice No: {props.item.invoice_id}
-    </div>
-  }
-</div>
-)
-
-function isRemovable(item){
-  return removable.includes(item.item_type)
-}
-
-class LineItem extends React.Component {
-  render (){
-    const item = this.props.item
-
-    return(
-      <Table.Row>
-        <Table.Cell>{snakeCaseToRegular(item.item_type)}</Table.Cell>
-        <Table.Cell>{<Content item={item}/>}</Table.Cell>
-        <Table.Cell>{snakeCaseToRegular(item.status)}</Table.Cell>
-        <Table.Cell>{toDollar(item.amount)}</Table.Cell>
-        <Table.Cell>
-          {isRemovable(item)&&
-            <Button
-              onClick={
-                ()=>this.props.deleteLineItem(item.id)
-              }
-              ><Icon name='delete'/>Delete
-            </Button>}
-          </Table.Cell>
-        </Table.Row>
-      )
-    }
-  }
-
   const ReceivedPaymentsList = ({payments}) =>{
     return(
 
@@ -284,15 +243,15 @@ class LineItem extends React.Component {
             }
 
           </List>
-          </div>
-        )
+        </div>
       )
+    )
 
 
-    }
+  }
 
 
 
 
 
-    export default EditingPayoff;
+  export default EditingPayoff;

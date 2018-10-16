@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {Search, Button} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Client from '../../api/Client';
+import Client from '../../api/Client'
 
 
 class PayoffForm extends React.Component {
@@ -107,6 +107,10 @@ class PayoffForm extends React.Component {
       </form>
     )
   }
+}
+
+PayoffForm.propTypes = {
+  onFormSubmit:PropTypes.func,
 }
 
 export default PayoffForm;

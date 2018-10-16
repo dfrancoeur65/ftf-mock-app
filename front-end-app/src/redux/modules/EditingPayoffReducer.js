@@ -1,5 +1,6 @@
+import Client from '../../api/Client';
+
 const UPDATE_PAYOFF = 'UPDATE_PAYOFF';
-const SET_EDITING_PAYOFF = 'SET_EDITING_PAYOFF';
 
 
 const EditingPayoffReducer = (
@@ -7,30 +8,53 @@ const EditingPayoffReducer = (
   action
 ) =>{
   switch(action.type){
-    case SET_EDITING_PAYOFF:{
-      return action.payoff;
-    }; break;
     case UPDATE_PAYOFF:{
-      return state;
-    }; break;
-
+      return action.payoff;
+    };
     default: return state;
   }
 }
 
 
-export function setEditingPayoff(payoff){
+
+
+export function updatePayoff(payoff){
   return {
-    type:SET_EDITING_PAYOFF,
+    type:UPDATE_PAYOFF,
     payoff:payoff,
   }
 }
 
-export function updateEditingPayoff(id){
-  return {
-    type:UPDATE_PAYOFF,
-    id:id,
-  }
+export const handleUpdatedPayoff = (id,dispatch)=>{
+  Client.getPayoff(id,(payoff)=>{
+    dispatch(
+      updatePayoff(payoff)
+    )
+  })
+}
+
+export const handleDeleteLineItem = (id, dispatch) =>{
+  Client.deleteLineItem(id,(lineItem)=>{
+    handleUpdatedPayoff(lineItem.payoff_id,dispatch)
+  })
+}
+
+export const handleNewLineItem = (data,dispatch)=>{
+  Client.createLineItem(data,(lineItem)=>{
+    handleUpdatedPayoff(lineItem.payoff_id,dispatch)
+  })
+}
+
+export const handleReceivedPayment = (data,dispatch)=>{
+  Client.createReceivedPayment(data,(res)=>{
+    handleUpdatedPayoff(res.payoff_id,dispatch)
+  })
+}
+
+export const handleStatusChange = (data,dispatch)=>{
+  Client.changePayoffStatus(data,(res)=>{
+    handleUpdatedPayoff(res.id,dispatch)
+  })
 }
 
 

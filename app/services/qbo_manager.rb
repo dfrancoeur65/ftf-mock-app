@@ -2,8 +2,8 @@
 
 class QboManager
   def initialize
-    @qbo_api = QboApi.new(token: 'lvprdMlivkEAhWjblvUB4zv7MAkl1xVm92mqfIR2v4EaOtqe',
-                          token_secret: 'VeVe69PLuVPohm1LNrnBG4OrL3pRO3vXtr45tSxZ',
+    @qbo_api = QboApi.new(token: ENV['QBO_TOKEN'],
+                          token_secret: ENV['QBO_TOKEN_SECRET'],
                           realm_id: 123_145_711_297_279,
                           consumer_key: ENV['QBO_OAUTH_CONSUMER_KEY'],
                           consumer_secret: ENV['QBO_OAUTH_CONSUMER_SECRET'])
@@ -13,8 +13,11 @@ class QboManager
     @qbo_api.get(:customer, id)
   end
 
-  def get_accounts
-    @qbo_api.query('SELECT * FROM Account MAXRESULTS 10')
+  def get_accounts(account_name)
+    @qbo_api.query(<<-SQL
+                  SELECT * FROM Account where DisplayName like #{account_name}
+    SQL
+                  )
   end
 
   def create_journal_entry(_data)

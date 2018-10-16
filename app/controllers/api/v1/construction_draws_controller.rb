@@ -1,16 +1,11 @@
 module Api::V1
-  class DealsController < ApplicationController
+  class ConstructionDrawsController < ApplicationController
     def index
-      @deals = Deal.all
-      render json: @deals
-    end
-
-    def accounting
       render json: {
-        deals: Deal.paginate(page: page)
-                   .order(sort_by + ' ' + order),
+        construction_draws: ConstructionDraw.paginate(page: page)
+                                            .order(sort_by + ' ' + order),
         page: page,
-        pages: Deal.pages
+        pages: ConstructionDraw.pages
       }
     end
 
