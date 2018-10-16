@@ -9,7 +9,7 @@ const methods = {
   }
 }
 
-const List = (props) =>{
+const PaginatedList = (props) =>{
   return !props.data.rows.length ? (
     <Loader active inline='centered'/>
   ):(
@@ -56,4 +56,4 @@ method.propTypes = {
   onMount:PropTypes.func,
 }
 
-export default lifecycle(methods)(List);
+export default lifecycle(methods)(PaginatedList);

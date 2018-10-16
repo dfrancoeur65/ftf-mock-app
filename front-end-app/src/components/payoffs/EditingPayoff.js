@@ -6,6 +6,7 @@ import LineItemForm from './LineItemForm';
 import ReceivePaymentForm from './ReceivePaymentForm';
 import LineItem from './LineItem'
 import ReceivedPaymentsList from './ReceivedPaymentsList';
+import PayoffDetails from './PayoffDetails'
 
 const removable = ['late_fee','discharge_fee','legal_fee'];
 
@@ -70,61 +71,10 @@ class EditingPayoff extends React.Component {
     ) : (
       <div className='ui grid'>
         <div className='row'>
-
-          <div className='ui card'>
-            <div className = 'ui content'>
-              <div className='header'>
-                Payoff Details
-              </div>
-              <div className='meta'>
-                Loan: {payoff.deal.street}
-              </div>
-              <div className='description'>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>
-                        Created At:
-                      </th>
-                      <td>
-                        {prettyDates(payoff.created_at)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        Payoff Date:
-                      </th>
-                      <td>
-                        {prettyDates(payoff.payoff_date)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        Status:
-                      </th>
-                      <td>
-                        <select value={payoff.status} onChange={this.handleStatusChange}>
-                          <option value="" disabled selected>Select Type</option>
-                          <option value="draft">
-                            Draft
-                          </option>
-                          <option value="sent">
-                            Sent
-                          </option>
-                          <option value="received">
-                            Received
-                          </option>
-                          <option value="reviewed">
-                            Reviewed
-                          </option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          <PayoffDetails
+            payoff={payoff}
+            onStatusChange={this.handleStatusChange}
+            />
         </div>
         <Table celled selectable>
           <Table.Header>
