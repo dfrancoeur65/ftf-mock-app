@@ -5,6 +5,7 @@ import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
 import ReceivePaymentForm from './ReceivePaymentForm';
 import LineItem from './LineItem'
+import ReceivedPaymentsList from './ReceivedPaymentsList';
 
 const removable = ['late_fee','discharge_fee','legal_fee'];
 
@@ -213,42 +214,12 @@ class EditingPayoff extends React.Component {
             }
             modalClose = {this.handleModalClose}
             />
-
         </div>
       )
     }
   }
 
-  const ReceivedPaymentsList = ({payments}) =>{
-    return(
 
-      !payments.length ? (
-        <div>
-          <h3>No Received Payments</h3>
-        </div>
-      ) : (
-        <div>
-          <h3>Received Payments</h3>
-          <List divided relaxed>
-            {
-              payments.map((payment, index)=>(
-                <List.Item key={index}>
-                  <List.Icon name='money' size='large' verticalAlign='middle' />
-                  <List.Content>
-                    <List.Header as='a'>{toDollar(payment.amount)}</List.Header>
-                    <List.Description as='a'>Received: {payment.date_received}</List.Description>
-                  </List.Content>
-                </List.Item>
-              ))
-            }
-
-          </List>
-        </div>
-      )
-    )
-
-
-  }
 
 
 

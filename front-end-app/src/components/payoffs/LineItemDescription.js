@@ -15,7 +15,7 @@ const LineItemDescription = (props) => (
     </div>
   }
   </div>
-
+  
 )
 
 LineItemDescription.propTypes = {

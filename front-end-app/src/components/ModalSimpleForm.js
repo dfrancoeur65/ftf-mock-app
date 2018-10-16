@@ -17,24 +17,24 @@ class ModalSimpleForm extends React.Component {
 
     return(
 
-    <Modal
-      size='large'
-      dimmer='inverted'
-      style = {inlineStyle.modal}
-      open = {this.props.isOpen}
-      closeIcon
-      onClose = {this.props.modalClose}
-      >
-      <Modal.Header>
-      {this.props.title}
-      </Modal.Header>
-      <Modal.Content>
-        <Grid.Column width={6}>
-        {form}
-        </Grid.Column>
-      </Modal.Content>
-    </Modal>
-  )
+      <Modal
+        size='large'
+        dimmer='inverted'
+        style = {inlineStyle.modal}
+        open = {this.props.isOpen}
+        closeIcon
+        onClose = {this.props.modalClose}
+        >
+        <Modal.Header>
+          {this.props.title}
+        </Modal.Header>
+        <Modal.Content>
+          <Grid.Column width={6}>
+            {form}
+          </Grid.Column>
+        </Modal.Content>
+      </Modal>
+    )
   }
 }
 

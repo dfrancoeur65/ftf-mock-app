@@ -10,7 +10,7 @@ const PayoffsReducer = (
   switch(action.type){
     case ADD_NEW_PAYOFF:{
       return [action.payoff,...state];
-    }; 
+    };
     case UPDATE_PAYOFFS:{
       return action.payoffs;;
     };
@@ -26,10 +26,10 @@ export function addPayoff(data){
 }
 
 export const updatePayoffs =(payoffs)=>{
-    return {
-      type:UPDATE_PAYOFFS,
-      payoffs:payoffs,
-    }
+  return {
+    type:UPDATE_PAYOFFS,
+    payoffs:payoffs,
+  }
 }
 export const createPayoff = (data, dispatch) =>{
   Client.createPayoff(data,(payoff)=>{
