@@ -16,6 +16,11 @@ const TopBar = () => (
           to='/payoffs'
           >Payoffs Dashboard
         </NavLink>
+        <NavLink
+          className = 'ui item'
+          to='/deals'
+          >Deals
+        </NavLink>
       </div>
     </div>
     )}

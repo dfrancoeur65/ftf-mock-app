@@ -2,24 +2,24 @@ import React from 'react';
 import lifecycle from 'react-pure-lifecycle';
 import PropTypes from 'prop-types'
 import {Loader} from 'semantic-ui-react';
-
+import ListPagination from './ListPagination'
 const methods = {
   componentDidMount(props){
-    props.onMount()
+    props.onMount(props.currentPage)
   }
 }
 
 const PaginatedList = (props) =>{
-  return !props.data.rows.length ? (
+  return !props.rows.length ? (
     <Loader active inline='centered'/>
   ):(
     <div>
-      <h2>{props.data.title}</h2>
+      <h2>Deals</h2>
       <table className='ui celled fixed table'>
         <thead className="">
           <tr className="">
             {
-              props.data.headers.map((header,index)=>(
+              props.headers.map((header,index)=>(
                 <th key = {index}>
                   {header.text}
                 </th>
@@ -28,12 +28,12 @@ const PaginatedList = (props) =>{
           </tr>
         </thead>
         <tbody className="">
-          {props.data.rows.length && props.data.rows.map((row,index)=>(
+          {props.rows.length && props.rows.map((row,index)=>(
             <tr
               key={row.id}
               >
             {
-              props.data.headers.map((header,index)=>(
+              props.headers.map((header,index)=>(
                 <td
                   key={index}>
                   {row[`${header.value}`]}
@@ -44,16 +44,22 @@ const PaginatedList = (props) =>{
           ))}
         </tbody>
       </table>
+      <ListPagination
+        currentPage={props.currentPage}
+        handlePageChange={props.onPageChange}
+        totalPages={props.totalPages}
+      />
     </div>
   )
 };
 
-List.propTypes = {
-  data: PropTypes.object,
+PaginatedList.propTypes = {
+  rows:PropTypes.array,
+  onMount:PropTypes.func,
+  currentPage:PropTypes.number,
+  onPageChange:PropTypes.func,
+  totalPages:PropTypes.number,
 }
 
-method.propTypes = {
-  onMount:PropTypes.func,
-}
 
 export default lifecycle(methods)(PaginatedList);

@@ -129,7 +129,7 @@ function changePayoffStatus(data,success){
   .then(success)
 }
 
-function getDeals(page =1,success){
+function getDeals(page=1,success){
   return fetch(`${DEALS_ACCOUNTING_URL}?page=${page}`,{
     accept: 'application/json',
   }).then(checkStatus)

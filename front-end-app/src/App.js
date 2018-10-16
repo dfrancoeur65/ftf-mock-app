@@ -7,7 +7,7 @@ import "./semantic-dist/semantic.min.css";
 import TopBar from './components/TopBar'
 import Reducer from './redux/modules/Reducer';
 import PayoffsDashboard from './components/payoffs/PayoffsDashboard';
-
+import DealsDashboard from './components/deals/DealsDashboard';
 const userStore = createStore(Reducer);
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
           <div className='spacer row'/>
           <div className='row'>
             <Route path='/payoffs' component={PayoffsDashboard}/>
-
+            <Route path='/deals' component={DealsDashboard}/>
           </div>
         </div>
       </div>
