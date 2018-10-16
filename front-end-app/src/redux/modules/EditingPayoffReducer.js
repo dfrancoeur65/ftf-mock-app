@@ -15,9 +15,6 @@ const EditingPayoffReducer = (
   }
 }
 
-
-
-
 export function updatePayoff(payoff){
   return {
     type:UPDATE_PAYOFF,
