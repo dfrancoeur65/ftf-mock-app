@@ -2,11 +2,6 @@ module Api::V1
   class LineItemsController < ApplicationController
     before_action :set_line_item, only: %i[show update]
 
-    def index
-      @line_items = LineItem.all
-      render json: @line_items
-    end
-
     def show
       render json: @line_item
     end

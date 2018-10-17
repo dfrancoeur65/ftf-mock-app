@@ -1,6 +1,6 @@
 class JournalEntryCreator
-  include Sidekiq::Worker
   class<<self
+    include Sidekiq::Worker
     def perform_async(deal_id)
       loan = Deal.find(deal_id).loan
       journal_entry = create_origination_entry(loan)

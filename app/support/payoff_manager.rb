@@ -10,6 +10,7 @@ module PayoffManager
     @payoff = payoffs.build(
       payoff_date: date
     )
+
     create_loan_amount_line_item
     create_unused_rehab_budget_line_item
     create_interest_line_items(date)
