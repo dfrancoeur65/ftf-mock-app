@@ -10,7 +10,6 @@ module PayoffManager
     @payoff = payoffs.build(
       payoff_date: date
     )
-
     create_loan_amount_line_item
     create_unused_rehab_budget_line_item
     create_interest_line_items(date)
@@ -23,20 +22,18 @@ module PayoffManager
   def create_unused_rehab_budget_line_item
     unused_rehab = -(rehab_budget_amount -
       processed_construction_draws.sum(:amount))
-    line_item = @payoff.line_items.build(
+    @payoff.line_items.build(
       amount: unused_rehab,
       item_type: LineItem.item_types[:unused_rehab_funds],
       status: LineItem.statuses[:closed]
     )
-    line_item.save!
   end
 
   def create_loan_amount_line_item
-    line_item = @payoff.line_items.build(
+    @payoff.line_items.build(
       amount: contract_amount,
       item_type: LineItem.item_types[:gross_loan_amount]
     )
-    line_item.save!
   end
 
   def create_interest_line_items(date)
@@ -46,14 +43,13 @@ module PayoffManager
 
   def create_outstanding_interest_line_items
     outstanding_invoices.each do |invoice|
-      line_item = @payoff.line_items.build(
+      @payoff.line_items.build(
         item_type: invoice.invoice_type,
         amount: invoice.amount_due,
         accrual_period_start: invoice.accrual_period_start,
         accrual_period_end: invoice.accrual_period_end,
         invoice_id: invoice.id
       )
-      line_item.save!
     end
   end
 
@@ -79,13 +75,12 @@ module PayoffManager
     estimated_amount = calculate_360_interest_between_two_dates(
       start_date, end_date
     )
-    line_item = @payoff.line_items.build(
+    @payoff.line_items.build(
       item_type: LineItem.item_types[:estimated_interest],
       amount: estimated_amount,
       accrual_period_start: start_date,
       accrual_period_end: end_date
     )
-    line_item.save!
   end
 
   def calculate_360_interest_between_two_dates(beg_date, end_date)
@@ -94,10 +89,9 @@ module PayoffManager
   end
 
   def create_closing_fee_line_items
-    line_item = @payoff.line_items.build(
+    @payoff.line_items.build(
       item_type: LineItem.item_types[:discharge_fee],
       amount: DISCHARGE_FEE
     )
-    line_item.save!
   end
 end
