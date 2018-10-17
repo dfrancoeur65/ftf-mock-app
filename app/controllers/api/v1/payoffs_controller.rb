@@ -8,25 +8,25 @@ module Api::V1
     end
 
     def show
-      @payoff = Payoff.find(params[:id])
+      @payoff = Payoff.find(payoff_params[:id])
       render json: @payoff.to_json(methods: %i[amount outstanding_amount],
                                    include: %i[line_items deal loan received_payments])
     end
 
     def destroy
-      @payoff = Payoff.destroy(params[:id])
+      @payoff = Payoff.destroy(payoff_params[:id])
       render json: @payoff
     end
 
     def create
-      @payoff = @loan.create_payoff(params[:payoff_date])
+      @payoff = @loan.create_payoff(payoff_params[:payoff_date])
       @payoff.save!
       render json: @payoff.to_json(methods: %i[amount outstanding_amount],
                                    include: %i[deal])
     end
 
     def update
-      @payoff = Payoff.find(params[:id])
+      @payoff = Payoff.find(payoff_params[:id])
       @payoff.update(payoff_params)
       @payoff.save!
       render json: @payoff, include: %i[deal]
@@ -35,7 +35,7 @@ module Api::V1
     private
 
     def set_loan
-      @loan = Loan.find(params[:loan_id])
+      @loan = Loan.find(payoff_params[:loan_id])
     end
 
     def payoff_params

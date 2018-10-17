@@ -19,9 +19,14 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'foreman'
 
+gem 'sidekiq'
+
 gem 'qbo_api'
+
 gem 'simple_oauth'
+
 gem 'rack-cors'
+
 gem 'bootstrap'
 
 gem 'jquery-rails'

@@ -6,12 +6,12 @@ module Api::V1
     end
 
     def show
-      @user = User.find(params[:id])
+      @user = User.find(user_params[:id])
       # render json: { status: 'Success', message: 'loaded user', data: user }, status: :ok
     end
 
     def destroy
-      @user = User.destroy(params[:id])
+      @user = User.destroy(user_params[:id])
       # render json: { status: 'Success', message: 'deleted the user', data: user }, status: :ok
     end
 

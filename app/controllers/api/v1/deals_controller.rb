@@ -14,7 +14,19 @@ module Api::V1
       }
     end
 
+    def accounting_create_deal
+      JournalEntryCreator.perform_async(deal_params[:id])
+      render json: {
+        status: 200,
+        message: 'Journal Entry is queued for creation'
+      }
+    end
+
     private
+
+    def deal_params
+      params.permit(:id)
+    end
 
     def page
       params[:page] || 1

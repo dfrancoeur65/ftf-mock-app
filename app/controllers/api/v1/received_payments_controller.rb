@@ -6,12 +6,12 @@ module Api::V1
     end
 
     def show
-      @received_payment = ReceivedPayment.find(params[:id])
+      @received_payment = ReceivedPayment.find(received_payment_params[:id])
       render json: @received_payment
     end
 
     def destroy
-      @received_payment = ReceivedPayment.destroy(params[:id])
+      @received_payment = ReceivedPayment.destroy(received_payment_params[:id])
       render json: @received_payment
     end
 

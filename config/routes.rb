@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :deals
       get 'deals-accounting', to: 'deals#accounting'
+      post 'accounting', to: 'deals#accounting_create_deal'
       resources :construction_draws
       resources :loans
       resources :payoffs

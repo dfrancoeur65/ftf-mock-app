@@ -29,7 +29,7 @@ module Api::V1
     private
 
     def set_line_item
-      @line_item = LineItem.find(params[:id])
+      @line_item = LineItem.find(line_item_params[:id])
     end
 
     def line_item_params
