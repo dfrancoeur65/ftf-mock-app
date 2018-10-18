@@ -38,7 +38,7 @@ class PayoffManager
 
   def create_interest_line_items(date)
     create_outstanding_interest_line_items
-    create_estimated_additional_interest_line_items(date)
+    from_current_month_until_payoff_date_create_estimated_interest(date)
   end
 
   def create_outstanding_interest_line_items
@@ -53,22 +53,25 @@ class PayoffManager
     end
   end
 
-  def create_estimated_additional_interest_line_items(end_date)
-    start_date = Date.today.beginning_of_month
-
-    while start_date < end_date
-      if start_date.end_of_month >= end_date
+  def from_current_month_until_payoff_date_create_estimated_interest(payoff_date)
+    period_start = Date.today.beginning_of_month
+    while period_start < payoff_date
+      if period_start.end_of_month >= payoff_date
         create_estimated_interest_line_item(
-          start_date, end_date
+          period_start, payoff_date
         )
-        start_date = end_date
-      elsif start_date.end_of_month < end_date
+        period_start = payoff_date
+      elsif period_start.end_of_month < payoff_date
         create_estimated_interest_line_item(
-          start_date, start_date.end_of_month
+          period_start, period_start.end_of_month
         )
-        start_date = start_date.end_of_month + INCLUDE_DAY_OF
+        period_start = first_day_of_next_month(period_start)
       end
     end
+  end
+
+  def first_day_of_next_month(date)
+    date.end_of_month + 1.day
   end
 
   def create_estimated_interest_line_item(start_date, end_date)
