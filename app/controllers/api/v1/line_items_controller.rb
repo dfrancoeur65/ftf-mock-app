@@ -16,8 +16,7 @@ module Api::V1
     end
 
     def create
-      @line_item = LineItem.new(line_item_params)
-      @line_item.save!
+      @line_item = LineItem.create(line_item_params)
       render json: @line_item
     end
 

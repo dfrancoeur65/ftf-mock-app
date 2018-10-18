@@ -1,7 +1,5 @@
 ## Loan model
 class Loan < ApplicationRecord
-  include LoanManager
-
   belongs_to :deal
   has_many :payoffs
   has_many :loan_adjustments
@@ -39,6 +37,7 @@ class Loan < ApplicationRecord
                   fully_funded repaid]
 
   # after_commit :determine_loan_funding_channel, if: :status_changed_to_closed
+  include LoanManager
 
   def determine_loan_funding_channel
     set_loan_funding_channel
