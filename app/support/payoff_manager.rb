@@ -1,13 +1,12 @@
 ## Loan Manager to determine funding channel status
 ## Determines using current month history and construction activity
-
 module PayoffManager
   include Days360
-  DISCHARGE_FEE = 250
-
-  def create_payoff(date_string)
-    date = Date.parse(date_string)
-    @payoff = payoffs.build(
+  class<<self
+  def create_payoff(payoff_date, loan_id)
+    @loan = Loan.find(loan_id)
+    date = Date.parse(payoff_date)
+    @payoff = @loan.payoffs.build(
       payoff_date: date
     )
     create_loan_amount_line_item
@@ -17,22 +16,23 @@ module PayoffManager
     @payoff
   end
 
-  private
+    private
 
-  def create_unused_rehab_budget_line_item
-    unused_rehab = -(rehab_budget_amount -
-      processed_construction_draws.sum(:amount))
-    @payoff.line_items.build(
-      amount: unused_rehab,
-      item_type: LineItem.item_types[:unused_rehab_funds],
-      status: LineItem.statuses[:closed]
-    )
-  end
+  DISCHARGE_FEE = 250
+  INCLUDE_DAY_OF = 1.day
 
   def create_loan_amount_line_item
     @payoff.line_items.build(
-      amount: contract_amount,
+      amount: @loan.contract_amount,
       item_type: LineItem.item_types[:gross_loan_amount]
+    )
+  end
+
+  def create_unused_rehab_budget_line_item
+    @payoff.line_items.build(
+      amount: @loan.unused_rehab,
+      item_type: LineItem.item_types[:unused_rehab_funds],
+      status: LineItem.statuses[:closed]
     )
   end
 
@@ -42,7 +42,7 @@ module PayoffManager
   end
 
   def create_outstanding_interest_line_items
-    outstanding_invoices.each do |invoice|
+    @loan.outstanding_invoices.each do |invoice|
       @payoff.line_items.build(
         item_type: invoice.invoice_type,
         amount: invoice.amount_due,
@@ -66,7 +66,7 @@ module PayoffManager
         create_estimated_interest_line_item(
           start_date, start_date.end_of_month
         )
-        start_date = start_date.end_of_month + 1.day
+        start_date = start_date.end_of_month + INCLUDE_DAY_OF
       end
     end
   end
@@ -84,8 +84,8 @@ module PayoffManager
   end
 
   def calculate_360_interest_between_two_dates(beg_date, end_date)
-    num_days = days360(beg_date, end_date + 1)
-    num_days * daily_360_interest_amount
+    num_days = days360(beg_date, end_date + INCLUDE_DAY_OF)
+    num_days * @loan.daily_360_interest_amount
   end
 
   def create_closing_fee_line_items
@@ -94,4 +94,5 @@ module PayoffManager
       amount: DISCHARGE_FEE
     )
   end
+end
 end

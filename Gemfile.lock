@@ -122,6 +122,8 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
+    perform-later (1.1.1.beta.1)
+      sidekiq (>= 3.0)
     pg (1.0.0)
     popper_js (1.14.3)
     public_suffix (3.0.2)
@@ -263,6 +265,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
+  perform-later (~> 1.1.1.a)
   pg (>= 0.18, < 2.0)
   popper_js
   puma (~> 3.7)

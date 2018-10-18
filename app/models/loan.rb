@@ -1,7 +1,6 @@
 ## Loan model
 class Loan < ApplicationRecord
   include LoanManager
-  include PayoffManager
 
   belongs_to :deal
   has_many :payoffs
@@ -44,6 +43,10 @@ class Loan < ApplicationRecord
   def determine_loan_funding_channel
     set_loan_funding_channel
     save!
+  end
+
+  def unused_rehab
+    rehab_budget_amount - processed_construction_draws.sum(:amount)
   end
 
   def monthly_interest

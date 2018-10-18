@@ -19,6 +19,8 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'foreman'
 
+gem 'perform-later', '~> 1.1.1.a'
+
 gem 'sidekiq'
 
 gem 'qbo_api'

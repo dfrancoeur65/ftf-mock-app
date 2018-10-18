@@ -1,14 +1,15 @@
 class JournalEntryCreator
   class<<self
-    include Sidekiq::Worker
-    def perform_async(deal_id)
+    include PerformLater
+    perform_later :create_origination_entry
+    def create_origination_entry(deal_id)
       loan = Deal.find(deal_id).loan
-      journal_entry = create_origination_entry(loan)
+      journal_entry = populate_journal_entry(loan)
       posted_je = QboManager.post_journal_entry(journal_entry)
       loan.update(qbo_origination_entry: posted_je)
     end
 
-    def create_origination_entry(data)
+    def populate_journal_entry(data)
       {
         "Line": [
           {
