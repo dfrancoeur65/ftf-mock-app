@@ -4,11 +4,7 @@ import PayoffsList from './PayoffsList';
 import SinglePayoff from './SinglePayoff';
 
 
-class PayoffsDashboard extends React.Component {
-
-  render(){
-    const matchPath = this.props.match.path;
-
+const PayoffsDashboard = ()=>{
     return (
       <div className='ui column'>
         <Route
@@ -30,7 +26,6 @@ class PayoffsDashboard extends React.Component {
           />
     </div>
   );
-}
 }
 
 

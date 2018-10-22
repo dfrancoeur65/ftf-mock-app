@@ -1,6 +1,7 @@
 import React from 'react'
-import {Table,List,Loader, Statistic, Icon, Button} from 'semantic-ui-react';
-import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../../helpers/formatting';
+import PropTypes from 'prop-types'
+import {Table,Loader, Statistic, Icon, Button} from 'semantic-ui-react';
+import { toDollar } from '../../helpers/formatting';
 import ModalSimpleForm from '../ModalSimpleForm';
 import LineItemForm from './LineItemForm';
 import ReceivePaymentForm from './ReceivePaymentForm';
@@ -8,6 +9,7 @@ import LineItem from './LineItem'
 import ReceivedPaymentsList from './ReceivedPaymentsList';
 import PayoffDetails from './PayoffDetails'
 
+//View for editing a single payoff
 const removable = ['late_fee','discharge_fee','legal_fee'];
 
 function isRemovable(item){
@@ -115,7 +117,6 @@ class EditingPayoff extends React.Component {
           </div>
           <div className='row'>
             <div className='column'>
-
               <Statistic
                 floated="right"
                 size="small"
@@ -169,7 +170,14 @@ class EditingPayoff extends React.Component {
     }
   }
 
-
+EditingPayoff.propTypes = {
+  onAddLineItem:PropTypes.func,
+  editingPayoff:PropTypes.object,
+  onStatusChange:PropTypes.func,
+  onReceivePayment:PropTypes.func,
+  onMount:PropTypes.func,
+  onDeleteLineItem:PropTypes.func
+}
 
 
 

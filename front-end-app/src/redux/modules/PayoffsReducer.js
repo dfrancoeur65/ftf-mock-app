@@ -3,6 +3,7 @@ import Client from '../../api/Client';
 const ADD_NEW_PAYOFF = 'ADD_NEW_PAYOFF';
 const UPDATE_PAYOFFS = 'UPDATE_PAYOFFS';
 
+//Reducer
 const columnHeaders = ['Payoff Id',
 'Created At',
 'Payoff Date',
@@ -12,7 +13,6 @@ const columnHeaders = ['Payoff Id',
 'View Payoff']
 
 const initialState = {
-  payoffs:[],
   data:[],
   headers:columnHeaders,
 }
@@ -21,18 +21,16 @@ const PayoffsReducer = (
   action
 ) => {
   switch(action.type){
-    case ADD_NEW_PAYOFF:{
+    case ADD_NEW_PAYOFF:
       return {
         ...state,
         data:[action.payoff,...state.data]
       };
-    };
-    case UPDATE_PAYOFFS:{
+    case UPDATE_PAYOFFS:
       return {
         ...state,
         data:[...action.payoffs]
       };
-    }
     default: return state;
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import {toDollar,prettyDates,snakeCaseToRegular} from '../../helpers/formatting';
 
+//Child component
 
 const PayoffRow = (props) => (
   <tr key={props.id}>

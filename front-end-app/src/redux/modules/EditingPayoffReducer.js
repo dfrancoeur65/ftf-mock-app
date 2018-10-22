@@ -2,15 +2,14 @@ import Client from '../../api/Client';
 
 const UPDATE_PAYOFF = 'UPDATE_PAYOFF';
 
-
+//Reducer
 const EditingPayoffReducer = (
   state={},
   action
 ) =>{
   switch(action.type){
-    case UPDATE_PAYOFF:{
+    case UPDATE_PAYOFF:
       return action.payoff;
-    };
     default: return state;
   }
 }

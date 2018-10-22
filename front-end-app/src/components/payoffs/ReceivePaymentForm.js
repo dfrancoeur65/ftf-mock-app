@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Input, Label} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types'
+
 
 
 class ReceivePaymentForm extends React.Component {
@@ -72,6 +74,11 @@ handleDateChange = (date)=>{
       </form>
     )
   }
+}
+
+ReceivePaymentForm.propTypes = {
+  onFormSubmit:PropTypes.func,
+  payoffId:PropTypes.number,
 }
 
 export default ReceivePaymentForm;

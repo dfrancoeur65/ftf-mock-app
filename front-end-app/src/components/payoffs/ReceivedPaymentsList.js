@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {List} from 'semantic-ui-react';
-import {toMonthYearString,prettyDates, toDollar, snakeCaseToRegular } from '../../helpers/formatting';
+import { toDollar } from '../../helpers/formatting';
 
 
 const ReceivedPaymentsList = (props) =>{
@@ -30,10 +30,11 @@ const ReceivedPaymentsList = (props) =>{
       </div>
     )
   )
-
-
 }
 
+ReceivedPaymentsList.propTypes = {
+  payments:PropTypes.array
+}
 
 
 export default ReceivedPaymentsList

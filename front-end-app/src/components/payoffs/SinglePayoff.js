@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import {handleStatusChange,handleReceivedPayment,handleUpdatedPayoff, handleNewLineItem,handleDeleteLineItem} from '../../redux/modules/EditingPayoffReducer';
 import EditingPayoff from './EditingPayoff';
-import Client from '../../api/Client';
 
 const mapDispatchToEditingPayoffProps = (dispatch,props)=>(
   {

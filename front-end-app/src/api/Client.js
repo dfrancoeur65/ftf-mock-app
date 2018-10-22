@@ -1,42 +1,10 @@
 
-const INVESTMENT_URL = '/api/v1/investments';
 const OFFERINGS_URL = '/api/v1/offerings';
 const PAYOFFS_URL = '/api/v1/payoffs';
 const LINE_ITEMS_URL = '/api/v1/line_items';
 const LOANS_URL = '/api/v1/loans';
 const RECEIVED_PAYMENTS_URL = '/api/v1/received_payments';
-const CONSTRUCTION_DRAWS_URL = '/api/v1/construction_draws';
 const DEALS_ACCOUNTING_URL = '/api/v1/deals-accounting';
-
-
-function createInvestment(data){
-  return fetch(INVESTMENT_URL,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json; charset=utf-8",
-    },
-    body:JSON.stringify(data),
-  }).then(checkStatus)
-  .then(parseJSON)
-}
-
-function updateInvestment(data){
-  return fetch(`${INVESTMENT_URL}/${data.id}`, {
-    method:"PUT",
-    headers: {
-      "Content-Type":"application/json; charset=utf-8",
-    },
-    body: JSON.stringify(data),
-  })
-  .then(response => response.json());
-}
-
-function getInvestments(success){
-  return fetch(INVESTMENT_URL,{
-    accept:'application/json',
-  }).then(checkStatus)
-    .then(parseJSON)
-}
 
 
 function getOfferings(success){
@@ -153,7 +121,6 @@ function parseJSON(response) {
   return response.json();
 }
 
-
 const Client = {
   getPayoff,
   changePayoffStatus,
@@ -162,7 +129,6 @@ const Client = {
   getAllPayoffs,
   deleteLineItem,
   createLineItem,
-  createInvestment,
   createPayoff,
   getOfferings,
   getDeals,
