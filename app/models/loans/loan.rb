@@ -48,12 +48,16 @@ class Loan < ApplicationRecord
     rehab_budget_amount - processed_construction_draws.sum(:amount)
   end
 
+  def loan_outstanding
+    raise NotImplementedError, 'Subclasses must define `calculate_monthly_interest`'
+  end
+
   def monthly_interest
-    (contract_amount * annual_percentage_rate / 12).round(2)
+    (loan_outstanding * annual_percentage_rate / 12).round(2)
   end
 
   def daily_360_interest_amount
-    (contract_amount * annual_percentage_rate / 360).round(2)
+    (loan_outstanding * annual_percentage_rate / 360).round(2)
   end
 
   private

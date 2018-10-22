@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ModalSimpleForm from '../ModalSimpleForm';
-import List from './List';
 import PayoffForm from './PayoffForm';
-
+import PaginatedList from '../PaginatedList';
+import PayoffRow from './PayoffRow'
 
 
 class Payoffs extends React.Component {
@@ -11,13 +11,13 @@ class Payoffs extends React.Component {
     isModalOpen:false,
   }
 
-  handleFormSubmit = (loan_id,payoff_date) =>{
+  handleFormSubmit = (loan_id,payoff_date) => {
     console.log("Submitted the new payoff");
     this.props.onNewPayoff(loan_id,payoff_date)
     this.handleModalClose();
   }
 
-  handleModalClose = ()=>{
+  handleModalClose = () => {
     this.setState({isModalOpen:false})
   }
 
@@ -26,7 +26,6 @@ class Payoffs extends React.Component {
   }
 
   render () {
-
     return(
       <div className = 'ui grid'>
       <div className='row'>
@@ -36,11 +35,15 @@ class Payoffs extends React.Component {
         </div>
       </div>
       <div className = 'row'>
-      <List
+
+      <PaginatedList
+        rows={this.props.payoffs}
+        headers={this.props.headers}
         onMount={this.props.onMount}
-        payoffs={this.props.payoffs}
-        payoffsPathname={this.props.payoffsPathname}
-      />
+        title='Payoffs List'
+        isPaginated={false}
+        rowElement={PayoffRow}
+       />
       </div>
       <ModalSimpleForm
         isOpen={this.state.isModalOpen}
@@ -51,7 +54,6 @@ class Payoffs extends React.Component {
         modalClose = {this.handleModalClose}
         />
       </div>
-
     )
   }
 }
@@ -61,5 +63,11 @@ Payoffs.propTypes = {
   onMount:PropTypes.func,
   createNewPayoff:PropTypes.func,
 }
+
+// <List
+//   onMount={this.props.onMount}
+//   payoffs={this.props.payoffs}
+//   headers={this.props.headers}
+// />
 
 export default Payoffs;

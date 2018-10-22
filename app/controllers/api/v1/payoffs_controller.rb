@@ -22,7 +22,7 @@ module Api::V1
     end
 
     def create
-      @payoff = PayoffManager.create_payoff(
+      @payoff = PayoffBuilder.build_payoff(
         payoff_params[:payoff_date],
         payoff_params[:loan_id]
       )

@@ -1,11 +1,7 @@
 import Client from '../../../api/Client';
 
 const UPDATE_DEALS = 'UPDATE_DEALS';
-const columnHeaders = [
-  {value:'street',text:'Title'},
-  {value:'state',text:'State'},
-  {value:'borrower_id',text:'Borrower'},
-]
+const columnHeaders = ['Title','State','Borrower']
 
 const initialState = {
   pageDeals:[],
@@ -31,7 +27,7 @@ const DealsReducer = (
 }
 
 
-export const updateDeals =(data)=>{
+export const updateDeals = (data)=> {
   return {
     type:UPDATE_DEALS,
     payload:data,

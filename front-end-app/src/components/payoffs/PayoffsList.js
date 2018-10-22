@@ -21,7 +21,8 @@ const mapDispatchToPayoffsProps = (dispatch,props)=>(
 
 const mapStateToPayoffsProps = (state)=>(
   {
-    payoffs:state.payoffs,
+    payoffs:state.payoffs.data,
+    headers:state.payoffs.headers,
   }
 );
 
