@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181017150525) do
+ActiveRecord::Schema.define(version: 20181020171037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20181017150525) do
     t.integer "rehab_budget_amount"
     t.integer "product"
     t.json "qbo_origination_entry"
+    t.string "type"
     t.index ["deal_id"], name: "index_loans_on_deal_id"
   end
 

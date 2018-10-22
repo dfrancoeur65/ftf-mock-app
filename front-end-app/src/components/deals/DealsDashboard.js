@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {handleGetDeals, handlePageChange} from '../../redux/modules/other/DealsReducer';
 import PaginatedList from '../PaginatedList';
+import DealRow from './DealRow'
+
 
 const mapDispatchToPaginatedList = (dispatch,props)=>({
   onMount:(page)=>handleGetDeals(page,dispatch),
@@ -10,11 +12,13 @@ const mapDispatchToPaginatedList = (dispatch,props)=>({
 });
 
 const mapStateToPaginatedList = (state)=>({
+  title:"Active Deals",
   headers:state.deals.headers,
   rows:state.deals.pageDeals,
   totalPages:state.deals.totalPages,
   currentPage:state.deals.currentPage,
-
+  isPaginated:true,
+  rowElement:DealRow,
 });
 
 const DealsDashboard = connect(

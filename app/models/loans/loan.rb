@@ -1,7 +1,5 @@
 ## Loan model
 class Loan < ApplicationRecord
-  include LoanManager
-
   belongs_to :deal
   has_many :payoffs
   has_many :loan_adjustments
@@ -39,6 +37,7 @@ class Loan < ApplicationRecord
                   fully_funded repaid]
 
   # after_commit :determine_loan_funding_channel, if: :status_changed_to_closed
+  include LoanManager
 
   def determine_loan_funding_channel
     set_loan_funding_channel
@@ -49,12 +48,16 @@ class Loan < ApplicationRecord
     rehab_budget_amount - processed_construction_draws.sum(:amount)
   end
 
+  def loan_outstanding
+    raise NotImplementedError, 'Subclasses must define `calculate_monthly_interest`'
+  end
+
   def monthly_interest
-    (contract_amount * annual_percentage_rate / 12).round(2)
+    (loan_outstanding * annual_percentage_rate / 12).round(2)
   end
 
   def daily_360_interest_amount
-    (contract_amount * annual_percentage_rate / 360).round(2)
+    (loan_outstanding * annual_percentage_rate / 360).round(2)
   end
 
   private

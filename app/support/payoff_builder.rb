@@ -1,9 +1,15 @@
 ## Loan Manager to determine funding channel status
 ## Determines using current month history and construction activity
-class PayoffManager
+class PayoffBuilder
   include Days360
+
   class<<self
-  def create_payoff(payoff_date, loan_id)
+    def build_payoff(*args)
+      new.build_payoff(*args)
+    end
+  end
+
+  def build_payoff(payoff_date, loan_id)
     @loan = Loan.find(loan_id)
     date = Date.parse(payoff_date)
     @payoff = @loan.payoffs.build(
@@ -16,7 +22,7 @@ class PayoffManager
     @payoff
   end
 
-    private
+  private
 
   DISCHARGE_FEE = 250
   INCLUDE_DAY_OF = 1.day
@@ -97,5 +103,4 @@ class PayoffManager
       amount: DISCHARGE_FEE
     )
   end
-end
 end

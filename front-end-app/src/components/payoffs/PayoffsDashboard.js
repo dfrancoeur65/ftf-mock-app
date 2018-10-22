@@ -14,9 +14,7 @@ class PayoffsDashboard extends React.Component {
         <Route
           exact path = '/payoffs'
           component = {()=>(
-            <PayoffsList
-              payoffsPathname = {matchPath}
-              />
+            <PayoffsList/>
           )}
           />
           <Route

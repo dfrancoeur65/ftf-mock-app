@@ -1,7 +1,7 @@
 module Api::V1
   class PayoffsController < ApplicationController
     def index
-      @payoffs = Payoff.all
+      @payoffs = Payoff.all.includes(:deal)
       render json: @payoffs.to_json(
         methods: %i[amount outstanding_amount],
         include: %i[deal]
@@ -9,7 +9,7 @@ module Api::V1
     end
 
     def show
-      @payoff = Payoff.find(payoff_params[:id])
+      @payoff = Payoff.includes(:line_items, :deal, :received_payments, :loan).find(payoff_params[:id])
       render json: @payoff.to_json(
         methods: %i[amount outstanding_amount],
         include: %i[line_items deal loan received_payments]
@@ -22,7 +22,7 @@ module Api::V1
     end
 
     def create
-      @payoff = PayoffManager.create_payoff(
+      @payoff = PayoffBuilder.build_payoff(
         payoff_params[:payoff_date],
         payoff_params[:loan_id]
       )
@@ -36,7 +36,6 @@ module Api::V1
     def update
       @payoff = Payoff.find(payoff_params[:id])
       @payoff.update(payoff_params)
-      @payoff.save!
       render json: @payoff, include: %i[deal]
     end
 

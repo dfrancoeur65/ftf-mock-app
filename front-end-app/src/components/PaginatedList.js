@@ -14,52 +14,50 @@ const PaginatedList = (props) =>{
     <Loader active inline='centered'/>
   ):(
     <div>
-      <h2>Deals</h2>
+      <h2>{props.title}</h2>
       <table className='ui celled fixed table'>
         <thead className="">
           <tr className="">
             {
               props.headers.map((header,index)=>(
                 <th key = {index}>
-                  {header.text}
+                  {header}
                 </th>
-              ))
+              )
+            )
             }
           </tr>
         </thead>
-        <tbody className="">
-          {props.rows.length && props.rows.map((row,index)=>(
-            <tr
-              key={row.id}
-              >
-            {
-              props.headers.map((header,index)=>(
-                <td
-                  key={index}>
-                  {row[`${header.value}`]}
-                </td>
-              ))
-            }
-          </tr>
-          ))}
-        </tbody>
-      </table>
+        <tbody>
+          {
+            props.rows.length && props.rows.map((row)=>(
+              props.rowElement(row)
+            )
+          )
+          }
+      </tbody>
+    </table>
+    {props.isPaginated &&
       <ListPagination
         currentPage={props.currentPage}
         handlePageChange={props.onPageChange}
         totalPages={props.totalPages}
-      />
-    </div>
-  )
-};
+        />}
+      </div>
+    )
+  };
 
-PaginatedList.propTypes = {
-  rows:PropTypes.array,
-  onMount:PropTypes.func,
-  currentPage:PropTypes.number,
-  onPageChange:PropTypes.func,
-  totalPages:PropTypes.number,
-}
+  PaginatedList.propTypes = {
+    headers:PropTypes.array,
+    title:PropTypes.string,
+    rows:PropTypes.array,
+    onMount:PropTypes.func,
+    currentPage:PropTypes.number,
+    onPageChange:PropTypes.func,
+    totalPages:PropTypes.number,
+    isPaginated:PropTypes.bool.isRequired,
+    rowElement:PropTypes.func.isRequired,
+  }
 
 
-export default lifecycle(methods)(PaginatedList);
+  export default lifecycle(methods)(PaginatedList);
