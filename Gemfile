@@ -17,17 +17,33 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'foreman'
+
+gem 'perform-later', '~> 1.1.1.a'
+
+gem 'sidekiq'
+
+gem 'qbo_api'
+
+gem 'simple_oauth'
+
+gem 'rack-cors'
+
 gem 'bootstrap'
 
 gem 'jquery-rails'
 
 gem 'rspec-rails', :group => [:development, :test]
 
+gem 'rails-erd', group: :development
+
 gem 'simple_form'
 
 gem 'popper_js'
 
 gem 'tether-rails'
+
+gem 'days360'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -40,15 +56,14 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
+gem 'faker'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 group :test do
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'faker'
   gem 'database_cleaner'
 end
 
@@ -65,7 +80,6 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'faker'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

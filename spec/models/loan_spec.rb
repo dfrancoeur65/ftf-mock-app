@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'byebug'
 
 RSpec.describe 'Loan Model' do
   context 'after a loan is switched to closed' do

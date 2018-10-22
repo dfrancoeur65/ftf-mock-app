@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :investment do
     amount { Faker::Number.between(5, 25) * 1000 }
     association :user, factory: :user
-    association :deal, factory: :deal
+    association :offering, factory: :offering
 
     trait :invested do
       status 'invested'
