@@ -49,7 +49,13 @@ class Loan < ApplicationRecord
   end
 
   def loan_outstanding
-    raise NotImplementedError, 'Subclasses must define `calculate_monthly_interest`'
+    if product == 'construction_tranche'
+      contract_amount - unused_rehab
+    elsif product == 'at_close'
+      contract_amount
+    else
+      contract_amount
+    end
   end
 
   def monthly_interest
