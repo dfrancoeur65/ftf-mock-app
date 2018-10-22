@@ -35,7 +35,6 @@ class Payoffs extends React.Component {
         </div>
       </div>
       <div className = 'row'>
-
       <PaginatedList
         rows={this.props.payoffs}
         headers={this.props.headers}
