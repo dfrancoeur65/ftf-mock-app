@@ -47,30 +47,32 @@ handleDateChange = (date)=>{
     const {form} = this.state
     return(
       <form className = 'ui form'>
-
-      <div className = 'ui field'>
-      <Input
-        onChange={this.handleAmountChange}
-        value={form.amount}
-        labelPosition='right'
-        type='text'
-        placeholder='Amount'
-      >
-      <Label basic>$</Label>
-      <input />
-      </Input>
-      </div>
-      <div className='ui field'>
-        <label>Select Date Received</label>
-        <DatePicker
-          selected={this.state.form.date_received}
-          onChange={this.handleDateChange}
-          />
-      </div>
-      <Button
-       onClick = {this.handleFormSubmit}
-      >
-      Receive Payment</Button>
+        <div className = 'ui field'>
+          <Input
+            onChange={this.handleAmountChange}
+            value={form.amount}
+            labelPosition='right'
+            type='text'
+            placeholder='Amount'
+            >
+            <Label basic>$</Label>
+            <input />
+          </Input>
+        </div>
+        <div className='ui field'>
+          <label>
+            Select Date Received
+          </label>
+          <DatePicker
+            selected={this.state.form.date_received}
+            onChange={this.handleDateChange}
+            />
+        </div>
+        <Button
+          onClick = {this.handleFormSubmit}
+          >
+          Receive Payment
+        </Button>
       </form>
     )
   }

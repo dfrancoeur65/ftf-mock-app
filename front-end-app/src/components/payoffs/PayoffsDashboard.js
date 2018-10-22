@@ -5,27 +5,27 @@ import SinglePayoff from './SinglePayoff';
 
 
 const PayoffsDashboard = ()=>{
-    return (
-      <div className='ui column'>
-        <Route
-          exact path = '/payoffs'
-          component = {()=>(
-            <PayoffsList/>
-          )}
-          />
-          <Route
-            path={'/payoffs/:payoffId'}
-            component ={({match})=>{
-            return(
-              <SinglePayoff
-                payoffId = {match.params.payoffId}
-                />
-            );
-          }
-          }
-          />
-    </div>
-  );
+  return (
+    <div className='ui column'>
+      <Route
+        exact path = '/payoffs'
+        component = {()=>(
+          <PayoffsList/>
+        )}
+        />
+      <Route
+        path={'/payoffs/:payoffId'}
+        component ={({match})=>{
+          return(
+            <SinglePayoff
+              payoffId = {match.params.payoffId}
+              />
+          );
+        }
+      }
+      />
+  </div>
+);
 }
 
 

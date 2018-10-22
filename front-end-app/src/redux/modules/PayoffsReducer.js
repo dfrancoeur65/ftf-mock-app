@@ -22,48 +22,48 @@ const PayoffsReducer = (
 ) => {
   switch(action.type){
     case ADD_NEW_PAYOFF:
-      return {
-        ...state,
-        data:[action.payoff,...state.data]
-      };
+    return {
+      ...state,
+      data:[action.payoff,...state.data]
+    };
     case UPDATE_PAYOFFS:
-      return {
-        ...state,
-        data:[...action.payoffs]
-      };
+    return {
+      ...state,
+      data:[...action.payoffs]
+    };
     default: return state;
   }
 }
 
-  export function addPayoff(data){
-    return {
-      type:ADD_NEW_PAYOFF,
-      payoff: data,
-    }
+export function addPayoff(data){
+  return {
+    type:ADD_NEW_PAYOFF,
+    payoff: data,
   }
+}
 
-  export const updatePayoffs =(payoffs)=>{
-    return {
-      type:UPDATE_PAYOFFS,
-      payoffs:payoffs,
-    }
+export const updatePayoffs =(payoffs)=>{
+  return {
+    type:UPDATE_PAYOFFS,
+    payoffs:payoffs,
   }
-  export const createPayoff = (data, dispatch) =>{
-    Client.createPayoff(data,(payoff)=>{
-      dispatch(
-        addPayoff(payoff)
+}
+export const createPayoff = (data, dispatch) =>{
+  Client.createPayoff(data,(payoff)=>{
+    dispatch(
+      addPayoff(payoff)
+    )
+  })
+}
+
+export const getPayoffs = dispatch =>{
+  Client.getAllPayoffs((payoffs)=>{
+    dispatch(
+      updatePayoffs(
+        payoffs
       )
-    })
-  }
+    )
+  })
+}
 
-  export const getPayoffs = dispatch =>{
-    Client.getAllPayoffs((payoffs)=>{
-      dispatch(
-        updatePayoffs(
-          payoffs
-        )
-      )
-    })
-  }
-
-  export default PayoffsReducer;
+export default PayoffsReducer;

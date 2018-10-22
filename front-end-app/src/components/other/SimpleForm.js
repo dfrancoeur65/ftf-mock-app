@@ -44,57 +44,57 @@ class SimpleForm extends React.Component {
   }
 
   render () {
-          <form className = 'ui form'>
-          <div className='equal width fields'>
-            <div className='field'>
-            <label>Investment Amount</label>
-              <div className='ui input'>
-                <input
-                type='number'
-                name='amount'
-                value={this.state.form.amount}
-                control='input'
-                placeholder='ex. 10,000'
-                onChange={this.onInputChange}/>
-                <span style={{color: 'red'}}>{this.state.fieldErrors.amount}</span>
-              </div>
-            </div>
+    <form className = 'ui form'>
+      <div className='equal width fields'>
+        <div className='field'>
+          <label>Investment Amount</label>
+          <div className='ui input'>
+            <input
+              type='number'
+              name='amount'
+              value={this.state.form.amount}
+              control='input'
+              placeholder='ex. 10,000'
+              onChange={this.onInputChange}/>
+            <span style={{color: 'red'}}>{this.state.fieldErrors.amount}</span>
           </div>
-          <div className='inline fields'>
-            <div className='grouped fields'>
-            <label>Select Funding Account</label>
-            {
-              this.state.currentUser.bankAccounts.map((account,index)=>(
-                <div key={index} className='field'>
+        </div>
+      </div>
+      <div className='inline fields'>
+        <div className='grouped fields'>
+          <label>Select Funding Account</label>
+          {
+            this.state.currentUser.bankAccounts.map((account,index)=>(
+              <div key={index} className='field'>
                 <label>
-                <input
-                  key={index}
-                  onChange={this.handleBankAccountChange}
-                  id={account.id}
-                  type='radio'
-                  name='bankAccount'/>
+                  <input
+                    key={index}
+                    onChange={this.handleBankAccountChange}
+                    id={account.id}
+                    type='radio'
+                    name='bankAccount'/>
                   {account.institution+" - xxxx"+account.last_four_digits}
                 </label>
 
-                </div>
-              ))
-            }
-            <div className= 'field'>
+              </div>
+            ))
+          }
+          <div className= 'field'>
             <label><input onChange={this.handleBankAccountChange} id="null" type='radio' name='bankAccount'/> New Account</label>
 
-            </div>
+          </div>
 
-          </div>
-          </div>
-          <div className='field'>
-            <button
-            className='ui button'
-            type='submit'
-            onClick={this.onFormSubmit}
-            >Submit
-            </button>
-          </div>
-        </form>
+        </div>
+      </div>
+      <div className='field'>
+        <button
+          className='ui button'
+          type='submit'
+          onClick={this.onFormSubmit}
+          >Submit
+        </button>
+      </div>
+    </form>
   }
 }
 

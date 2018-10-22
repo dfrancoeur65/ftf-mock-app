@@ -29,8 +29,10 @@ class Payoffs extends React.Component {
     return(
       <div className = 'ui grid'>
         <div className='row'>
-          <div className='ui right float button'
-            onClick = {this.openModal}>
+          <div
+            className='ui right float button'
+            onClick = {this.openModal}
+            >
             Draft Payoff
           </div>
         </div>
@@ -47,12 +49,14 @@ class Payoffs extends React.Component {
         <ModalSimpleForm
           isOpen={this.state.isModalOpen}
           title = 'Create Draft Payoff'
-          form = {<PayoffForm
-            onFormSubmit = {this.handleFormSubmit}
-            />}
-            modalClose = {this.handleModalClose}
-            />
-        </div>
+          form = {
+            <PayoffForm
+              onFormSubmit = {this.handleFormSubmit}
+              />
+          }
+          modalClose = {this.handleModalClose}
+          />
+      </div>
       )
     }
   }

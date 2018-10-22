@@ -46,8 +46,14 @@ class LineItemForm extends React.Component {
           <div className = 'ui field'>
             <Label>Select Type
             </Label>
-            <select placeholder = "Select Type" value={form.item_type} onChange={this.handleTypeChange}>
-              <option value="" disabled selected>Select Type</option>
+            <select
+              placeholder = "Select Type"
+              value={form.item_type}
+              onChange={this.handleTypeChange}
+             >
+              <option value="" disabled selected>
+                Select Type
+              </option>
               <option value="legal_fee">
                 Legal Fee
               </option>

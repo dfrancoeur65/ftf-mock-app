@@ -16,7 +16,9 @@ const PaginatedList = (props) =>{
     <Loader active inline='centered'/>
   ):(
     <div>
-      <h2>{props.title}</h2>
+      <h2>
+        {props.title}
+      </h2>
       <table className='ui celled fixed table'>
         <thead className="">
           <tr className="">
@@ -44,9 +46,10 @@ const PaginatedList = (props) =>{
       currentPage={props.currentPage}
       handlePageChange={props.onPageChange}
       totalPages={props.totalPages}
-      />}
-    </div>
-  )
+      />
+  }
+</div>
+)
 };
 
 PaginatedList.propTypes = {

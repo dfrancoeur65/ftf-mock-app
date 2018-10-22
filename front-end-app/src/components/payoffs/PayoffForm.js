@@ -70,7 +70,6 @@ class PayoffForm extends React.Component {
 
       const { isLoading, value, results} = this.state
       return(
-
         <form className = 'ui form'>
           <div className = 'field'>
             <label>Select Loan</label>

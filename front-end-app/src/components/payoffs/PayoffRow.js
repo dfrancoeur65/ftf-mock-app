@@ -25,9 +25,11 @@ const PayoffRow = (props) => (
       {snakeCaseToRegular(props.status)}
     </td>
     <td>
-    <Link className='ui button' to={`payoffs/${props.id}`}>
+      <Link
+        className='ui button'
+        to={`payoffs/${props.id}`}>
         View
-    </Link>
+      </Link>
     </td>
   </tr>
 )
