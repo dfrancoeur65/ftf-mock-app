@@ -11,7 +11,7 @@ class LineItemForm extends React.Component {
       this.state.form)
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.resetComponent()
     }
 

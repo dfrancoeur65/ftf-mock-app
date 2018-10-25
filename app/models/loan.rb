@@ -5,43 +5,59 @@ class Loan < ApplicationRecord
   has_many :loan_adjustments
   has_many :construction_draws
   has_many :invoices
-  has_many :processed_construction_draws, -> { where status: 'processed' },
+  has_many :processed_construction_draws,
+           -> { where status: 'processed' },
            class_name: 'ConstructionDraw',
            foreign_key: 'loan_id'
-  has_many :processed_repayments, -> { where(status: 'processed') },
+  has_many :processed_repayments,
+           -> { where(status: 'processed') },
            class_name: 'LoanAdjustment',
            foreign_key: 'loan_id'
-  has_many :outstanding_invoices, -> { where(status: 'outstanding') },
+  has_many :outstanding_invoices,
+           -> { where(status: 'outstanding') },
            class_name: 'Invoice',
            foreign_key: 'loan_id'
-  scope :loans_in_close, -> { where(status: :closed) }
-  scope :originated_today, -> { where(origination_date: Date.now) }
-  scope :originated_current_month, lambda {
-                                     where(origination_date:
-                                       Time.now.beginning_of_month..Time.now)
-                                   }
-  scope :sold, -> { where(funding_channel: 'sale') }
-  scope :crowdfunded, -> { where(funding_channel: 'crowdfund') }
+  scope :loans_in_close,
+        -> { where(status: :closed) }
+  scope :originated_today,
+        -> { where(origination_date: Date.now) }
+  scope :originated_current_month,
+        lambda {
+          where(origination_date:
+            Time.now.beginning_of_month..Time.now)
+        }
+  scope :sold, -> {
+    where(
+      funding_channel: 'sale'
+    )
+  }
+  scope :crowdfunded, -> {
+                        where(funding_channel: 'crowdfund')
+                      }
   scope :originated_current_year, lambda {
                                     where(origination_date:
                                       Time.now.beginning_of_year..Time.now)
                                   }
-  # scope :outstanding_invoices, -> { where status: 'outstanding' },
-  #       class_name: 'Invoice',
-  #       foreign_key: 'loan_id'
-
-  enum funding_channel: %i[crowdfund sale undefined]
-  enum product: %i[at_close construction_tranche]
-  enum status: %i[received under_review term_sheet
-                  closing_scheduled closed funded_off_platform
+  enum funding_channel: %i[crowdfund
+                           sale
+                           undefined]
+  enum product: %i[at_close
+                   construction_tranche]
+  enum status: %i[received under_review
+                  term_sheet
+                  closing_scheduled
+                  closed
+                  funded_off_platform
                   fully_funded repaid]
 
-  # after_commit :determine_loan_funding_channel, if: :status_changed_to_closed
+  after_save :set_loan_funding_channel,
+             if: :status_changed_to_closed?
+
   include LoanManager
 
-  def determine_loan_funding_channel
-    set_loan_funding_channel
-    save!
+  def set_loan_funding_channel
+    channel = determine_loan_funding_channel
+    update(funding_channel: determine_loan_funding_channel)
   end
 
   def unused_rehab
@@ -68,7 +84,7 @@ class Loan < ApplicationRecord
 
   private
 
-  def status_changed_to_closed
-    closed?
+  def status_changed_to_closed?
+    saved_change_to_status?(from: 'closing_scheduled', to: 'closed')
   end
 end

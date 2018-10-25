@@ -16,7 +16,7 @@ class PayoffForm extends React.Component {
       this.state.payoff_date)
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.resetComponent()
       this.resetResults()
     }

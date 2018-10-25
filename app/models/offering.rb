@@ -1,5 +1,5 @@
 class Offering < ApplicationRecord
-  has_one :loan
+  belongs_to :loan
   has_many :investments
   has_many :invested_investments, -> { where status: 'invested' },
            class_name: 'Investment',
