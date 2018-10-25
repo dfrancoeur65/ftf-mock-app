@@ -1,6 +1,4 @@
 import {connect} from 'react-redux';
-import React from 'react';
-import PropTypes from 'prop-types';
 import {handleGetDeals, handlePageChange} from '../../redux/modules/other/DealsReducer';
 import PaginatedList from '../PaginatedList';
 import DealRow from './DealRow'

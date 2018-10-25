@@ -36,7 +36,7 @@ class PayoffBuilder
 
   def create_unused_rehab_budget_line_item
     @payoff.line_items.build(
-      amount: @loan.unused_rehab,
+      amount: -@loan.unused_rehab,
       item_type: LineItem.item_types[:unused_rehab_funds],
       status: LineItem.statuses[:closed]
     )

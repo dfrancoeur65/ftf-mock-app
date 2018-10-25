@@ -9,34 +9,27 @@ const inlineStyle = {
     marginRight: 'centered'
   }
 };
-class ModalSimpleForm extends React.Component {
-
-
-  render () {
-    const form = this.props.form;
-
+const ModalSimpleForm = (props) =>{
     return(
-
       <Modal
         size='large'
         dimmer='inverted'
         style = {inlineStyle.modal}
-        open = {this.props.isOpen}
+        open = {props.isOpen}
         closeIcon
-        onClose = {this.props.modalClose}
+        onClose = {props.modalClose}
         >
         <Modal.Header>
-          {this.props.title}
+          {props.title}
         </Modal.Header>
         <Modal.Content>
           <Grid.Column width={6}>
-            {form}
+            {props.form}
           </Grid.Column>
         </Modal.Content>
       </Modal>
     )
   }
-}
 
 ModalSimpleForm.propTypes = {
   isOpen: PropTypes.bool,

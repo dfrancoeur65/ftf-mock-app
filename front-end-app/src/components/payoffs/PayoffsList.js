@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {createPayoff,getPayoffs} from '../../redux/modules/PayoffsReducer';
 import Payoffs from './Payoffs';
 
-
+//Adapter
 
 function handleNewPayoff(loan_id,payoff_date,dispatch){
   var data = {

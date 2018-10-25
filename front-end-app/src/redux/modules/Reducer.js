@@ -1,10 +1,10 @@
 
-import React, { Component } from 'react';
 import {combineReducers} from 'redux';
 import PayoffsReducer from './PayoffsReducer';
 import EditingPayoffReducer from './EditingPayoffReducer';
 import DealsReducer from './other/DealsReducer';
 
+//reducer
 const Reducer = combineReducers(
   {
     payoffs: PayoffsReducer,

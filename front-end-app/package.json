@@ -2,7 +2,7 @@
   "name": "front-end-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://localhost:3001/",
   "dependencies": {
     "date-and-time": "^0.6.2",
     "humanize-plus": "^1.7.0",

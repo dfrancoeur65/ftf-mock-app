@@ -14,13 +14,12 @@ const DealsReducer = (
   action
 ) =>{
   switch(action.type){
-    case UPDATE_DEALS:{
-      return {
-        ...state,
-        pageDeals:action.payload.deals,
-        currentPage:action.payload.page,
-        totalPages:action.payload.pages,
-      };
+    case UPDATE_DEALS:
+    return {
+      ...state,
+      pageDeals:action.payload.deals,
+      currentPage:action.payload.page,
+      totalPages:action.payload.pages,
     };
     default: return state;
   }

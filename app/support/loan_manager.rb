@@ -5,11 +5,11 @@ module LoanManager
   CONSTRUCTION_LOAN_RATIO_THRESHOLD = 0.3
   LARGE_LOAN_THRESHOLD = 400_000
 
-  def set_loan_funding_channel
+  def determine_loan_funding_channel
     if large_loan?
-      set_for_sale
+      'sale'
     elsif construction_heavy_loan?
-      set_for_crowdfunding
+      'crowdfund'
     else
       set_based_on_current_month_statistics
     end
@@ -17,16 +17,8 @@ module LoanManager
 
   private
 
-  def set_for_crowdfunding
-    assign_attributes(funding_channel: 'crowdfund')
-  end
-
   def large_loan?
     contract_amount > LARGE_LOAN_THRESHOLD
-  end
-
-  def set_for_sale
-    assign_attributes(funding_channel: 'sale')
   end
 
   def construction_heavy_loan?
@@ -44,9 +36,9 @@ module LoanManager
 
   def set_based_on_current_month_statistics
     if calc_percentage_loans_sold_current_month < LOAN_SALE_TO_CROWDFUND_RATIO
-      set_for_sale
+      'sale'
     else
-      set_for_crowdfunding
+      'crowdfund'
     end
   end
 end

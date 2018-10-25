@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Input, Label} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types'
+
 
 
 class ReceivePaymentForm extends React.Component {
@@ -11,7 +13,7 @@ class ReceivePaymentForm extends React.Component {
       this.state.form)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.resetComponent()
   }
 
@@ -45,33 +47,40 @@ handleDateChange = (date)=>{
     const {form} = this.state
     return(
       <form className = 'ui form'>
-
-      <div className = 'ui field'>
-      <Input
-        onChange={this.handleAmountChange}
-        value={form.amount}
-        labelPosition='right'
-        type='text'
-        placeholder='Amount'
-      >
-      <Label basic>$</Label>
-      <input />
-      </Input>
-      </div>
-      <div className='ui field'>
-        <label>Select Date Received</label>
-        <DatePicker
-          selected={this.state.form.date_received}
-          onChange={this.handleDateChange}
-          />
-      </div>
-      <Button
-       onClick = {this.handleFormSubmit}
-      >
-      Receive Payment</Button>
+        <div className = 'ui field'>
+          <Input
+            onChange={this.handleAmountChange}
+            value={form.amount}
+            labelPosition='right'
+            type='text'
+            placeholder='Amount'
+            >
+            <Label basic>$</Label>
+            <input />
+          </Input>
+        </div>
+        <div className='ui field'>
+          <label>
+            Select Date Received
+          </label>
+          <DatePicker
+            selected={this.state.form.date_received}
+            onChange={this.handleDateChange}
+            />
+        </div>
+        <Button
+          onClick = {this.handleFormSubmit}
+          >
+          Receive Payment
+        </Button>
       </form>
     )
   }
+}
+
+ReceivePaymentForm.propTypes = {
+  onFormSubmit:PropTypes.func,
+  payoffId:PropTypes.number,
 }
 
 export default ReceivePaymentForm;
