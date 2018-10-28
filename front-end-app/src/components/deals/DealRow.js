@@ -1,17 +1,34 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const DealRow = (props) =>(
-  <tr key={props.id}>
+const DealRow = ({
+  street, state, id, borrower_id
+}) => (
+  <tr key={id}>
     <td>
-      {props.street}
+      {street}
     </td>
     <td>
-      {props.state}
+      {state}
     </td>
     <td>
-      {props.borrower_id}
+      {borrower_id}
     </td>
   </tr>
-)
+);
 
-export default DealRow
+DealRow.propTypes = {
+  street: PropTypes.string,
+  state: PropTypes.string,
+  borrower_id: PropTypes.string,
+  id: PropTypes.string
+};
+
+DealRow.defaultProps = {
+  street: 'error',
+  state: 'error',
+  borrower_id: 'error',
+  id: 'error'
+};
+
+export default DealRow;

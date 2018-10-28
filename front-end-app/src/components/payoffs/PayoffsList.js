@@ -1,28 +1,28 @@
-import {connect} from 'react-redux';
-import {createPayoff,getPayoffs} from '../../redux/modules/PayoffsReducer';
+import { connect } from 'react-redux';
+import { createPayoff, getPayoffs } from '../../redux/modules/PayoffsReducer';
 import Payoffs from './Payoffs';
 
-//Adapter
+// Adapter
 
-function handleNewPayoff(loan_id,payoff_date,dispatch){
-  var data = {
+function handleNewPayoff(loan_id, payoff_date, dispatch) {
+  const data = {
     loan_id,
-    payoff_date:payoff_date
-  }
-  createPayoff(data,dispatch)
+    payoff_date
+  };
+  createPayoff(data, dispatch);
 }
 
-const mapDispatchToPayoffsProps = (dispatch,props)=>(
+const mapDispatchToPayoffsProps = (dispatch, props) => (
   {
-    onMount:() => getPayoffs(dispatch),
-    onNewPayoff:(loan_id,payoff_date)=>handleNewPayoff(loan_id,payoff_date,dispatch),
+    onMount: () => getPayoffs(dispatch),
+    onNewPayoff: (loan_id, payoff_date) => handleNewPayoff(loan_id, payoff_date, dispatch)
   }
 );
 
-const mapStateToPayoffsProps = (state)=>(
+const mapStateToPayoffsProps = state => (
   {
-    payoffs:state.payoffs.data,
-    headers:state.payoffs.headers,
+    payoffs: state.payoffs.data,
+    headers: state.payoffs.headers
   }
 );
 
@@ -30,7 +30,6 @@ const PayoffsList = connect(
   mapStateToPayoffsProps,
   mapDispatchToPayoffsProps,
 )(Payoffs);
-
 
 
 export default PayoffsList;

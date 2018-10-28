@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {toDollar,prettyDates,snakeCaseToRegular} from '../../helpers/formatting';
+import { toDollar, prettyDates, snakeCaseToRegular } from '../../helpers/formatting';
 
-//Child component
+// Child component
 
-const PayoffRow = (props) => (
+const PayoffRow = props => (
   <tr key={props.id}>
     <td>
       {props.id}
@@ -21,18 +21,19 @@ const PayoffRow = (props) => (
     <td>
       {toDollar(props.amount)}
     </td>
-    <td style={{color:props.status === 'draft' ? "blue": props.status==='sent' ? 'orange' : 'green'}}>
+    <td style={{ color: props.status === 'draft' ? 'blue' : props.status === 'sent' ? 'orange' : 'green' }}>
       {snakeCaseToRegular(props.status)}
     </td>
     <td>
       <Link
-        className='ui button'
-        to={`payoffs/${props.id}`}>
+        className="ui button"
+        to={`payoffs/${props.id}`}
+      >
         View
       </Link>
     </td>
   </tr>
-)
+);
 
 
 export default PayoffRow;
