@@ -11,18 +11,20 @@ const methods = {
   }
 };
 
-const PaginatedList = props => (!props.rows.length ? (
+const PaginatedList = ({
+  title, headers, rows, rowElement, isPaginated, currentPage, onPageChange, totalPages
+}) => (!rows.length ? (
   <Loader active inline="centered" />
 ) : (
   <div>
     <h2>
-      {props.title}
+      {title}
     </h2>
     <table className="ui celled fixed table">
       <thead className="">
         <tr className="">
           {
-              props.headers.map((header, index) => (
+              headers.map((header, index) => (
                 <th key={index}>
                   {header}
                 </th>
@@ -32,18 +34,18 @@ const PaginatedList = props => (!props.rows.length ? (
       </thead>
       <tbody>
         {
-          props.rows.length && props.rows.map(row => (
-            props.rowElement(row)
+          rows.length && rows.map(row => (
+            rowElement(row)
           ))
       }
       </tbody>
     </table>
-    {props.isPaginated
+    {isPaginated
     && (
     <ListPagination
-      currentPage={props.currentPage}
-      handlePageChange={props.onPageChange}
-      totalPages={props.totalPages}
+      currentPage={currentPage}
+      handlePageChange={onPageChange}
+      totalPages={totalPages}
     />
     )
   }
@@ -62,5 +64,14 @@ PaginatedList.propTypes = {
   rowElement: PropTypes.func.isRequired
 };
 
+PaginatedList.defaultProps = {
+  headers: [],
+  title: 'List',
+  rows: [],
+  onMount: () => {},
+  currentPage: 1,
+  onPageChange: () => {},
+  totalPages: 1
+};
 
 export default lifecycle(methods)(PaginatedList);
